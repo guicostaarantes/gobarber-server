@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import cors from 'cors';
 
+import path from 'path';
+
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 
@@ -14,6 +16,10 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(
+  '/static',
+  express.static(path.join(__dirname, '..', process.env.STATIC_DIR)),
+);
 app.use(routes);
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {

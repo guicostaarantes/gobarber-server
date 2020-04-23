@@ -24,6 +24,9 @@ class User {
   @Column({ name: 'isProvider' })
   is_provider: boolean;
 
+  @Column()
+  avatar: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
