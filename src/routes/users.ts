@@ -9,8 +9,8 @@ import CreateUserService from '../services/CreateUserService';
 const usersRouter = Router();
 
 usersRouter.get('/', async (req, res) => {
-  const userssRepository = getRepository(User);
-  const users = await userssRepository.find();
+  const usersRepository = getRepository(User);
+  const users = await usersRepository.find();
   res.status(200).send(users);
 });
 
@@ -24,6 +24,8 @@ usersRouter.post('/', async (req, res) => {
     email,
     password,
   });
+
+  delete user.password;
 
   res.status(200).send(user);
 });
