@@ -17,7 +17,7 @@ class CreateUserService {
   }: ServiceRequest): Promise<User> {
     const usersRepository = getRepository(User);
 
-    const findByMail = usersRepository.findOne({
+    const findByMail = await usersRepository.findOne({
       where: { email },
     });
 
