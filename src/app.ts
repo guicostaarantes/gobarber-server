@@ -24,7 +24,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     });
   }
 
-  // TODO: log 500 errors
+  console.error(err);
 
   return response.status(500).json({
     status: 'error',
