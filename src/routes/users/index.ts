@@ -1,34 +1,13 @@
 import { Router } from 'express';
 
-import { getRepository } from 'typeorm';
-
-import User from '../../models/User';
-
-import CreateUserService from '../../services/CreateUserService';
+import getUsers from './middleware/getUsers';
+import postUser from './middleware/postUser';
 
 const usersRouter = Router();
 
-usersRouter.get('/', async (req, res) => {
-  const usersRepository = getRepository(User);
-  const users = await usersRepository.find();
-  res.status(200).send(users);
-});
+usersRouter.get('/', getUsers);
 
-usersRouter.post('/', async (req, res) => {
-  const { fullName, email, password } = req.body;
-
-  const service = new CreateUserService();
-
-  const user = await service.execute({
-    fullName,
-    email,
-    password,
-  });
-
-  delete user.password;
-
-  res.status(200).send(user);
-});
+usersRouter.post('/', postUser);
 
 // usersRouter.patch('/:id', async (req, res) => {});
 

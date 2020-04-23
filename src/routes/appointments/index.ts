@@ -1,44 +1,14 @@
 import { Router } from 'express';
 
-import { getCustomRepository } from 'typeorm';
-
-import { parseISO } from 'date-fns';
-
 import ensureAuthenticated from '../middleware/ensureAuthenticated';
-
-import AppointmentsRepository from '../../repositories/AppointmentsRepository';
-
-import CreateAppointmentService from '../../services/CreateAppointmentService';
+import getAppointments from './middleware/getAppointments';
+import postAppointment from './middleware/postAppointment';
 
 const appointmentsRouter = Router();
 
-appointmentsRouter.get('/', async (req, res) => {
-  const consumerId = req.tokenUserId;
-  const appointmentsRepository = getCustomRepository(AppointmentsRepository);
-  const appointments = await appointmentsRepository.find({
-    where: { consumerId },
-  });
-  res.status(200).send(appointments);
-});
+appointmentsRouter.get('/', getAppointments);
 
-appointmentsRouter.post('/', ensureAuthenticated, async (req, res) => {
-  const consumerId = req.tokenUserId;
-  const { providerId } = req.body;
-  let { startDate, endDate } = req.body;
-  startDate = parseISO(startDate);
-  endDate = parseISO(endDate);
-
-  const service = new CreateAppointmentService();
-
-  const appointment = await service.execute({
-    consumerId,
-    providerId,
-    startDate,
-    endDate,
-  });
-
-  res.status(200).send(appointment);
-});
+appointmentsRouter.post('/', ensureAuthenticated, postAppointment);
 
 // appointmentsRouter.patch('/:id', async (req, res) => {});
 
