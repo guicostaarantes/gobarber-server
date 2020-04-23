@@ -11,7 +11,12 @@ import AppError from './errors/AppError';
 
 import createConnection from './database';
 
-createConnection();
+createConnection().catch(err => {
+  console.error(err); // eslint-disable-line no-console
+  console.log('Unable to connect to database due to error above. Exiting...'); // eslint-disable-line no-console
+  process.exit(1);
+});
+
 const app = express();
 
 app.use(cors());
@@ -30,6 +35,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
     });
   }
 
+  // TODO: errors that arrive here need to be logged and treated.
   console.error(err);
 
   return response.status(500).json({
