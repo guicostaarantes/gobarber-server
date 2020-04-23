@@ -16,6 +16,7 @@ class AuthenticateUserService {
     const usersRepository = getRepository(User);
 
     const user = await usersRepository.findOne({
+      select: ['id', 'password'],
       where: { email },
     });
 
