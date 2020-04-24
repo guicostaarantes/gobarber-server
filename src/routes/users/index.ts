@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import ensureAuthenticated from '../middleware/ensureAuthenticated';
+import getUser from './middleware/getUser';
 import getUsers from './middleware/getUsers';
 import postUser from './middleware/postUser';
 import patchAvatar from './middleware/patchAvatar';
@@ -8,7 +9,9 @@ import upload from '../middleware/upload';
 
 const usersRouter = Router();
 
-usersRouter.get('/', getUsers);
+usersRouter.get('/', ensureAuthenticated, getUsers);
+
+usersRouter.get('/:id', ensureAuthenticated, getUser);
 
 usersRouter.post('/', postUser);
 
