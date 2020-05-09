@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev:start": "env-cmd -f development.env ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts",
+    "dev:start": "env-cmd -f development.env ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/shared/infra/http/server.ts",
     "dev:typeorm": "env-cmd -f development.env ts-node-dev ./node_modules/typeorm/cli.js",
     "test": "env-cmd -f test.env jest",
     "staging:build": "env-cmd -f staging.env tsc",
