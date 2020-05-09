@@ -36,7 +36,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
     providerId,
     startDate,
     endDate,
-  }: IFindAppointmentClashDTO): Promise<Appointment | undefined> {
+  }: IFindAppointmentClashDTO): Promise<Appointment> {
     const appointment = this.baseRepository
       .createQueryBuilder()
       .where('start_date >= :startDate AND start_date < :endDate', {
@@ -49,7 +49,8 @@ class AppointmentsRepository implements IAppointmentsRepository {
       })
       .andWhere('provider_id = :pid', { pid: providerId })
       .getOne();
-    return appointment || undefined;
+
+    return appointment;
   }
 }
 
