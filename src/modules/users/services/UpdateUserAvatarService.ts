@@ -1,25 +1,24 @@
-import { getRepository } from 'typeorm';
+import IUser from '../entities/IUser';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
-import User from '../infra/database/entities/User';
-
-interface ServiceRequest {
+interface IServiceRequest {
   userId: string;
   avatarFilename: string;
 }
 
 class UpdateUserAvatarService {
+  constructor(private usersRepository: IUsersRepository) {}
+
   public async execute({
     userId,
     avatarFilename,
-  }: ServiceRequest): Promise<User> {
-    const usersRepository = getRepository(User);
-
-    const user = await usersRepository.findOne({ where: { id: userId } });
+  }: IServiceRequest): Promise<IUser> {
+    const user = await this.usersRepository.findById(userId, ['id', 'avatar']);
 
     // TODO: remove old avatar
 
     user.avatar = avatarFilename;
-    await usersRepository.save(user);
+    await this.usersRepository.update(user);
 
     return user;
   }

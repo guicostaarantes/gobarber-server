@@ -1,24 +1,22 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
-import { getRepository } from 'typeorm';
-
-import User from '../infra/database/entities/User';
 import AppError from '../../../shared/errors/AppError';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
-interface ServiceRequest {
+interface IServiceRequest {
   email: string;
   password: string;
 }
 
 class AuthenticateUserService {
-  public async execute({ email, password }: ServiceRequest): Promise<string> {
-    const usersRepository = getRepository(User);
+  constructor(private usersRepository: IUsersRepository) {}
 
-    const user = await usersRepository.findOne({
-      select: ['id', 'password'],
-      where: { email },
-    });
+  public async execute({ email, password }: IServiceRequest): Promise<string> {
+    const user = await this.usersRepository.findByEmail(email, [
+      'id',
+      'password',
+    ]);
 
     if (!user) {
       throw new AppError('Invalid credentials', 403);

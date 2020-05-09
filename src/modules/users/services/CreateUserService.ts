@@ -1,27 +1,24 @@
 import { hash } from 'bcryptjs';
 
-import { getRepository } from 'typeorm';
-
-import User from '../infra/database/entities/User';
 import AppError from '../../../shared/errors/AppError';
+import IUser from '../entities/IUser';
+import { IUsersRepository } from '../repositories/IUsersRepository';
 
-interface ServiceRequest {
+interface IServiceRequest {
   fullName: string;
   email: string;
   password: string;
 }
 
 class CreateUserService {
+  constructor(private usersRepository: IUsersRepository) {}
+
   public async execute({
     fullName,
     email,
     password,
-  }: ServiceRequest): Promise<User> {
-    const usersRepository = getRepository(User);
-
-    const findByMail = await usersRepository.findOne({
-      where: { email },
-    });
+  }: IServiceRequest): Promise<IUser> {
+    const findByMail = await this.usersRepository.findByEmail(email, ['id']);
 
     if (findByMail) {
       throw new AppError(
@@ -32,13 +29,11 @@ class CreateUserService {
 
     const hashPassword = await hash(password, 8);
 
-    const user = usersRepository.create({
+    const user = await this.usersRepository.create({
       fullName,
       email,
       password: hashPassword,
     });
-
-    await usersRepository.save(user);
 
     return user;
   }
