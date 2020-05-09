@@ -1,20 +1,44 @@
-import { Repository, EntityRepository } from 'typeorm';
+import { Repository, getRepository } from 'typeorm';
 
 import Appointment from '../entities/Appointment';
 import {
-  IFindByDateDTO,
+  IFindAppointmentClashDTO,
   IAppointmentsRepository,
+  ICreateAppointmentDTO,
 } from '../../../repositories/IAppointmentsRepository';
 
-@EntityRepository(Appointment)
-class AppointmentsRepository extends Repository<Appointment>
-  implements IAppointmentsRepository {
+class AppointmentsRepository implements IAppointmentsRepository {
+  private baseRepository: Repository<Appointment>;
+
+  constructor() {
+    this.baseRepository = getRepository(Appointment);
+  }
+
+  public async create({
+    consumerId,
+    providerId,
+    startDate,
+    endDate,
+  }: ICreateAppointmentDTO): Promise<Appointment> {
+    const newAppointment = this.baseRepository.create({
+      consumerId,
+      providerId,
+      startDate,
+      endDate,
+    });
+
+    const appointment = await this.baseRepository.save(newAppointment);
+
+    return appointment;
+  }
+
   public async findClash({
     providerId,
     startDate,
     endDate,
-  }: IFindByDateDTO): Promise<Appointment | undefined> {
-    const appointment = this.createQueryBuilder()
+  }: IFindAppointmentClashDTO): Promise<Appointment | undefined> {
+    const appointment = this.baseRepository
+      .createQueryBuilder()
       .where('start_date >= :startDate AND start_date < :endDate', {
         startDate,
         endDate,
