@@ -7,8 +7,10 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 
+import IAppointment from '../../../entities/IAppointment';
+
 @Entity('appointments')
-class Appointment {
+class Appointment implements IAppointment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
