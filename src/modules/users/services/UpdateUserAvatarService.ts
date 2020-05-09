@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import IUser from '../entities/IUser';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 
@@ -6,8 +7,12 @@ interface IServiceRequest {
   avatarFilename: string;
 }
 
+@injectable()
 class UpdateUserAvatarService {
-  constructor(private usersRepository: IUsersRepository) {}
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+  ) {}
 
   public async execute({
     userId,

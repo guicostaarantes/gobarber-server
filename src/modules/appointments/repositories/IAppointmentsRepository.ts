@@ -15,5 +15,6 @@ export interface IFindAppointmentClashDTO {
 
 export interface IAppointmentsRepository {
   create(dto: ICreateAppointmentDTO): Promise<IAppointment>;
+  findByConsumerId(consumerId: string): Promise<IAppointment[]>;
   findClash(dto: IFindAppointmentClashDTO): Promise<IAppointment>;
 }
