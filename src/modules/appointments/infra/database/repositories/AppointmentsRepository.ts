@@ -32,6 +32,11 @@ class AppointmentsRepository implements IAppointmentsRepository {
     return appointment;
   }
 
+  public async findByConsumerId(consumerId: string): Promise<Appointment[]> {
+    const appointments = await this.baseRepository.find({ where: consumerId });
+    return appointments;
+  }
+
   public async findClash({
     providerId,
     startDate,
