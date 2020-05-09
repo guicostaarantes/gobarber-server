@@ -4,7 +4,7 @@ import { verify } from 'jsonwebtoken';
 
 import AppError from '../../../errors/AppError';
 
-interface TokenPayload {
+interface ITokenPayload {
   sub: string;
   iat: number;
   exp: number;
@@ -28,7 +28,7 @@ const ensureAuthenticated = (
   }
 
   try {
-    const { sub } = verify(token, process.env.JWT_SECRET_KEY) as TokenPayload;
+    const { sub } = verify(token, process.env.JWT_SECRET_KEY) as ITokenPayload;
     req.tokenUserId = sub;
     next();
   } catch (err) {

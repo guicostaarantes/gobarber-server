@@ -4,7 +4,7 @@ import Appointment from '../infra/database/entities/Appointment';
 import AppointmentsRepository from '../infra/database/repositories/AppointmentsRepository';
 import AppError from '../../../shared/errors/AppError';
 
-interface ServiceRequest {
+interface IServiceRequest {
   consumerId: string;
   providerId: string;
   startDate: Date;
@@ -17,7 +17,7 @@ class CreateAppointmentService {
     providerId,
     startDate,
     endDate,
-  }: ServiceRequest): Promise<Appointment> {
+  }: IServiceRequest): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const findClash = await appointmentsRepository.findClash({
