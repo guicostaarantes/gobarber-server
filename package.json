@@ -6,6 +6,7 @@
     "dev:start": "env-cmd -f development.env ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/shared/infra/http/server.ts",
     "dev:typeorm": "env-cmd -f development.env ts-node-dev ./node_modules/typeorm/cli.js",
     "test": "env-cmd -f test.env jest",
+    "test:coverage": "env-cmd -f test.env jest --coverage",
     "staging:build": "env-cmd -f staging.env tsc",
     "production:build": "env-cmd -f production.env tsc"
   },
@@ -21,7 +22,8 @@
     "pg": "^8.0.0",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.2.0",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.24",
+    "uuidv4": "^6.0.8"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
