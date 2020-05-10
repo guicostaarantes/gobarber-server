@@ -23,8 +23,8 @@ class User implements IUser {
   @Column({ select: false })
   password: string;
 
-  @Column({ name: 'isProvider' })
-  is_provider: boolean;
+  @Column({ name: 'is_provider' })
+  isProvider: boolean;
 
   @Column()
   avatar: string;

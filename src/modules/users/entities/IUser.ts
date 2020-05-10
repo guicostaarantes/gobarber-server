@@ -3,7 +3,7 @@ export default interface IUser {
   fullName: string;
   email: string;
   password: string;
-  is_provider: boolean;
+  isProvider: boolean;
   avatar: string;
   createdAt: Date;
   updatedAt: Date;
