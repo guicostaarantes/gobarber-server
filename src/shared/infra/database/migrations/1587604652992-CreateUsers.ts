@@ -27,7 +27,7 @@ export default class CreateUsers1587604652992 implements MigrationInterface {
             type: 'varchar',
           },
           {
-            name: 'isProvider',
+            name: 'is_provider',
             type: 'boolean',
             default: false,
           },
