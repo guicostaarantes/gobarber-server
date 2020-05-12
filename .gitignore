@@ -7,3 +7,8 @@ dist
 
 tmp/*
 !tmp/.gitkeep
+
+fakeCDN/*
+!fakeCDN/.gitkeep
+
+coverage
