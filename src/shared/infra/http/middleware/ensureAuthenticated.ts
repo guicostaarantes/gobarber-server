@@ -1,8 +1,8 @@
+import { container } from 'tsyringe';
 import { Request, Response, NextFunction } from 'express';
 
-import { verify } from 'jsonwebtoken';
-
 import AppError from '../../../errors/AppError';
+import ValidateAccessTokenService from '../../../services/ValidateAccessTokenService';
 
 interface ITokenPayload {
   sub: string;
@@ -10,12 +10,13 @@ interface ITokenPayload {
   exp: number;
 }
 
-const ensureAuthenticated = (
+const ensureAuthenticated = async (
   req: Request,
   _res: Response,
   next: NextFunction,
-): void => {
+): Promise<void> => {
   const { authorization } = req.headers;
+  const service = container.resolve(ValidateAccessTokenService);
 
   if (!authorization) {
     throw new AppError('Unauthorized.', 401);
@@ -28,8 +29,8 @@ const ensureAuthenticated = (
   }
 
   try {
-    const { sub } = verify(token, process.env.JWT_SECRET_KEY) as ITokenPayload;
-    req.tokenUserId = sub;
+    const { subject } = await service.execute(token);
+    req.tokenUserId = subject;
     next();
   } catch (err) {
     throw new AppError('Unauthorized.', 401);

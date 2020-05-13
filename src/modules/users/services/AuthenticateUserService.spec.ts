@@ -1,8 +1,8 @@
 import { hash } from 'bcryptjs';
-import { verify } from 'jsonwebtoken';
 import { uuid } from 'uuidv4';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import AuthenticateUserService from './AuthenticateUserService';
+import JWTokenProvider from '../../../shared/providers/TokenProvider/implementations/JWTokenProvider';
 import AppError from '../../../shared/errors/AppError';
 
 interface ITokenPayload {
@@ -13,12 +13,14 @@ interface ITokenPayload {
 
 describe('Authenticate User Service', () => {
   let usersRepository: FakeUsersRepository;
+  let tokenProvider: JWTokenProvider;
   let service: AuthenticateUserService;
   const id = uuid();
 
   beforeAll(() => {
     usersRepository = new FakeUsersRepository();
-    service = new AuthenticateUserService(usersRepository);
+    tokenProvider = new JWTokenProvider();
+    service = new AuthenticateUserService(usersRepository, tokenProvider);
   });
 
   beforeEach(async () => {
@@ -43,9 +45,9 @@ describe('Authenticate User Service', () => {
       email: 'fulano@teste.com.br',
       password: 'Ful4nO*2020',
     });
-    const payload = verify(token, process.env.JWT_SECRET_KEY) as ITokenPayload;
-    expect(payload.sub).toBe(id);
-    expect(Object.keys(payload)).toHaveLength(3);
+    const payload = await tokenProvider.check(token);
+    expect(payload.subject).toBe(id);
+    expect(Object.keys(payload)).toHaveLength(4);
   });
 
   it('Should not get token with incorrect password', async () => {

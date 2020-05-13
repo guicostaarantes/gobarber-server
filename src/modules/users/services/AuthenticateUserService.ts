@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 import { compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
 
 import AppError from '../../../shared/errors/AppError';
 import { IUsersRepository } from '../repositories/IUsersRepository';
+import { ITokenProvider } from '../../../shared/providers/TokenProvider/ITokenProvider';
 
 interface IServiceRequest {
   email: string;
@@ -16,6 +16,8 @@ class AuthenticateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('TokenProvider')
+    private tokenProvider: ITokenProvider,
   ) {}
 
   public async execute({ email, password }: IServiceRequest): Promise<string> {
@@ -34,10 +36,7 @@ class AuthenticateUserService {
       throw new AppError('Invalid credentials', 403);
     }
 
-    const token = sign({}, process.env.JWT_SECRET_KEY, {
-      subject: user.id,
-      expiresIn: process.env.JWT_EXPIRES_IN,
-    });
+    const token = await this.tokenProvider.generate(user.id, 'access-token');
 
     return token;
   }
