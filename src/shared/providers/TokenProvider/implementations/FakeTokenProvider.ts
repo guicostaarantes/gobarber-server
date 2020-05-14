@@ -4,9 +4,9 @@ class FakeTokenProvider implements ITokenProvider {
   public tokens: string[] = [];
 
   public async generate(subject: string, type: string): Promise<string> {
-    const token = Buffer.from(JSON.stringify({ subject, type })).toString(
-      'base64',
-    );
+    const token = Buffer.from(
+      JSON.stringify({ subject, type, date: Date.now() }),
+    ).toString('base64');
     this.tokens.push(token);
     return token;
   }
