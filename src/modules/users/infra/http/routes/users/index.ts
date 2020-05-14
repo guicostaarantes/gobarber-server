@@ -7,6 +7,7 @@ import postUser from './middleware/postUser';
 import patchAvatar from './middleware/patchAvatar';
 import upload from '../../../../../../shared/infra/http/middleware/upload';
 import postForgotPassword from './middleware/postForgotPassword';
+import patchForgotPassword from './middleware/patchForgotPassword';
 
 const usersRouter = Router();
 
@@ -24,6 +25,8 @@ usersRouter.patch(
 );
 
 usersRouter.post('/forgot-password', postForgotPassword);
+
+usersRouter.patch('/forgot-password', patchForgotPassword);
 
 // usersRouter.delete('/:id', async (req, res) => {});
 
