@@ -1,8 +1,8 @@
 import { uuid } from 'uuidv4';
+import { JsonWebTokenError } from 'jsonwebtoken';
 import ValidateAccessTokenService from './ValidateAccessTokenService';
 import JWTokenProvider from '../providers/TokenProvider/implementations/JWTokenProvider';
 import AppError from '../errors/AppError';
-import { JsonWebTokenError } from 'jsonwebtoken';
 
 describe('Validate Access Token Service', () => {
   let tokenProvider: JWTokenProvider;
