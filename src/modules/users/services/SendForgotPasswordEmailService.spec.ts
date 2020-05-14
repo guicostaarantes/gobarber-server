@@ -3,12 +3,12 @@ import { uuid } from 'uuidv4';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import SendForgotPasswordEmailService from './SendForgotPasswordEmailService';
 import FakeMailProvider from '../../../shared/providers/MailProvider/implementations/FakeMailProvider';
-import JWTokenProvider from '../../../shared/providers/TokenProvider/implementations/JWTokenProvider';
+import FakeTokenProvider from '../../../shared/providers/TokenProvider/implementations/FakeTokenProvider';
 
 describe('Send Forgot Password Email Service', () => {
   let usersRepository: FakeUsersRepository;
   let mailProvider: FakeMailProvider;
-  let tokenProvider: JWTokenProvider;
+  let tokenProvider: FakeTokenProvider;
   let service: SendForgotPasswordEmailService;
   let sendMailSpy: jest.SpyInstance;
   const id = uuid();
@@ -16,16 +16,16 @@ describe('Send Forgot Password Email Service', () => {
   beforeAll(() => {
     usersRepository = new FakeUsersRepository();
     mailProvider = new FakeMailProvider();
-    tokenProvider = new JWTokenProvider();
+    tokenProvider = new FakeTokenProvider();
     service = new SendForgotPasswordEmailService(
       usersRepository,
       mailProvider,
       tokenProvider,
     );
-    sendMailSpy = jest.spyOn(mailProvider, 'sendMail');
   });
 
   beforeEach(async () => {
+    sendMailSpy = jest.spyOn(mailProvider, 'sendMail');
     const password = await hash('Ful4nO*2020', 8);
     usersRepository.table = [
       {
@@ -43,6 +43,7 @@ describe('Send Forgot Password Email Service', () => {
   });
 
   it('Should be able to send email to reset password', async () => {
+    const token = await tokenProvider.generate(id, 'forgot-password');
     await expect(
       service.execute({
         email: 'fulano@teste.com.br',
@@ -51,7 +52,7 @@ describe('Send Forgot Password Email Service', () => {
     expect(sendMailSpy).toHaveBeenCalledWith({
       to: ['fulano@teste.com.br'],
       subject: 'Recuperação de senha',
-      body: 'Acesse este link para recuperar sua senha',
+      body: `Acesse este link para recuperar sua senha: ${token}`,
     });
   });
 
@@ -70,11 +71,13 @@ describe('Send Forgot Password Email Service', () => {
         email: 'fulano@teste.com.br',
       }),
     ).resolves.toBeUndefined();
+    expect(sendMailSpy).toHaveBeenCalledTimes(1);
     await expect(
       service.execute({
-        email: 'funalo@teste.com.br',
+        email: 'fulano@teste.com.br',
       }),
     ).resolves.toBeUndefined();
-    expect(sendMailSpy).toHaveBeenCalledTimes(1);
+    // Next line should succeed because the feature is not implemented yet, however it is failing.
+    expect(sendMailSpy).toHaveBeenCalledTimes(2);
   });
 });
