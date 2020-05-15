@@ -1,7 +1,7 @@
-import { hash } from 'bcryptjs';
 import { uuid } from 'uuidv4';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import AuthenticateUserService from './AuthenticateUserService';
+import FakeHashProvider from '../../../shared/providers/HashProvider/implementations/FakeHashProvider';
 import JWTokenProvider from '../../../shared/providers/TokenProvider/implementations/JWTokenProvider';
 import AppError from '../../../shared/errors/AppError';
 
@@ -13,18 +13,23 @@ interface ITokenPayload {
 
 describe('Authenticate User Service', () => {
   let usersRepository: FakeUsersRepository;
+  let hashProvider: FakeHashProvider;
   let tokenProvider: JWTokenProvider;
   let service: AuthenticateUserService;
   const id = uuid();
 
   beforeAll(() => {
     usersRepository = new FakeUsersRepository();
+    hashProvider = new FakeHashProvider();
     tokenProvider = new JWTokenProvider();
-    service = new AuthenticateUserService(usersRepository, tokenProvider);
+    service = new AuthenticateUserService(
+      usersRepository,
+      hashProvider,
+      tokenProvider,
+    );
   });
 
   beforeEach(async () => {
-    const password = await hash('Ful4nO*2020', 8);
     usersRepository.table = [
       {
         id,
@@ -32,7 +37,7 @@ describe('Authenticate User Service', () => {
         email: 'fulano@teste.com.br',
         isProvider: false,
         avatar: null,
-        password,
+        password: await hashProvider.hash('Ful4nO*2020'),
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,

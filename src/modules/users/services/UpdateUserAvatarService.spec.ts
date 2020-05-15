@@ -1,12 +1,13 @@
-import { hash } from 'bcryptjs';
 import { uuid } from 'uuidv4';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import UpdateUserAvatarService from './UpdateUserAvatarService';
+import FakeHashProvider from '../../../shared/providers/HashProvider/implementations/FakeHashProvider';
 import FakeStorageProvider from '../../../shared/providers/StorageProvider/implementations/FakeStorageProvider';
 import AppError from '../../../shared/errors/AppError';
 
 describe('Update User Avatar Service', () => {
   let usersRepository: FakeUsersRepository;
+  let hashProvider: FakeHashProvider;
   let storageProvider: FakeStorageProvider;
   let service: UpdateUserAvatarService;
   const id = uuid();
@@ -14,13 +15,13 @@ describe('Update User Avatar Service', () => {
 
   beforeAll(() => {
     usersRepository = new FakeUsersRepository();
+    hashProvider = new FakeHashProvider();
     storageProvider = new FakeStorageProvider();
     deleteFileSpy = jest.spyOn(storageProvider, 'deleteFile');
     service = new UpdateUserAvatarService(usersRepository, storageProvider);
   });
 
   beforeEach(async () => {
-    const password = await hash('Ful4nO*2020', 8);
     usersRepository.table = [
       {
         id,
@@ -28,7 +29,7 @@ describe('Update User Avatar Service', () => {
         email: 'fulano@teste.com.br',
         isProvider: false,
         avatar: null,
-        password,
+        password: await hashProvider.hash('Ful4nO*2020'),
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,

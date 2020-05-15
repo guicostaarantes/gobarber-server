@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import AppointmentsRepository from '../../modules/appointments/infra/database/repositories/AppointmentsRepository';
 import UsersRepository from '../../modules/users/infra/database/repositories/UsersRepository';
 
+import BCryptHashProvider from '../providers/HashProvider/implementations/BCryptHashProvider';
 import DiskStorageProvider from '../providers/StorageProvider/implementations/DiskStorageProvider';
 import EtherealMailProvider from '../providers/MailProvider/implementations/EtherealMailProvider';
 import JWTokenProvider from '../providers/TokenProvider/implementations/JWTokenProvider';
@@ -11,6 +12,7 @@ import HandlebarsTemplateProvider from '../providers/TemplateProvider/implementa
 import { IAppointmentsRepository } from '../../modules/appointments/repositories/IAppointmentsRepository';
 import { IUsersRepository } from '../../modules/users/repositories/IUsersRepository';
 
+import { IHashProvider } from '../providers/HashProvider/IHashProvider';
 import { IStorageProvider } from '../providers/StorageProvider/IStorageProvider';
 import { IMailProvider } from '../providers/MailProvider/IMailProvider';
 import { ITokenProvider } from '../providers/TokenProvider/ITokenProvider';
@@ -29,6 +31,10 @@ container.registerSingleton<IUsersRepository>(
 
 // Providers
 
+container.registerInstance<IHashProvider>(
+  'HashProvider',
+  new BCryptHashProvider(),
+);
 container.registerInstance<IStorageProvider>(
   'StorageProvider',
   new DiskStorageProvider(),

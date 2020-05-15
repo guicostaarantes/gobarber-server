@@ -1,21 +1,22 @@
-import { hash } from 'bcryptjs';
 import { uuid } from 'uuidv4';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import UpdateUserProfileService from './UpdateUserProfileService';
+import FakeHashProvider from '../../../shared/providers/HashProvider/implementations/FakeHashProvider';
 import AppError from '../../../shared/errors/AppError';
 
 describe('Update User Profile Service', () => {
   let usersRepository: FakeUsersRepository;
+  let hashProvider: FakeHashProvider;
   let service: UpdateUserProfileService;
   const id = uuid();
 
   beforeAll(() => {
     usersRepository = new FakeUsersRepository();
+    hashProvider = new FakeHashProvider();
     service = new UpdateUserProfileService(usersRepository);
   });
 
   beforeEach(async () => {
-    const password = await hash('Ful4nO*2020', 8);
     usersRepository.table = [
       {
         id,
@@ -23,7 +24,7 @@ describe('Update User Profile Service', () => {
         email: 'fulano@teste.com.br',
         isProvider: false,
         avatar: null,
-        password,
+        password: await hashProvider.hash('Ful4nO*2020'),
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,

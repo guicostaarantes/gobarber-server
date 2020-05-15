@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import { hash } from 'bcryptjs';
 import { inject, injectable } from 'tsyringe';
 import { IUsersRepository } from '../repositories/IUsersRepository';
+import { IHashProvider } from '../../../shared/providers/HashProvider/IHashProvider';
 import { ITokenProvider } from '../../../shared/providers/TokenProvider/ITokenProvider';
 import AppError from '../../../shared/errors/AppError';
 
@@ -15,6 +15,8 @@ class UpdateUserPasswordService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
     @inject('TokenProvider')
     private tokenProvider: ITokenProvider,
   ) {}
@@ -31,7 +33,7 @@ class UpdateUserPasswordService {
       'password',
     ]);
 
-    const newHashedPassword = await hash(newPassword, 8);
+    const newHashedPassword = await this.hashProvider.hash(newPassword);
     user.password = newHashedPassword;
 
     await this.usersRepository.update(user);

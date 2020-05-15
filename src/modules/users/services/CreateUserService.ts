@@ -1,10 +1,10 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
-import { hash } from 'bcryptjs';
 
 import AppError from '../../../shared/errors/AppError';
 import IUser from '../entities/IUser';
 import { IUsersRepository } from '../repositories/IUsersRepository';
+import { IHashProvider } from '../../../shared/providers/HashProvider/IHashProvider';
 
 interface IServiceRequest {
   fullName: string;
@@ -17,6 +17,8 @@ class CreateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({
@@ -33,7 +35,7 @@ class CreateUserService {
       );
     }
 
-    const hashPassword = await hash(password, 8);
+    const hashPassword = await this.hashProvider.hash(password);
 
     const user = await this.usersRepository.create({
       fullName,

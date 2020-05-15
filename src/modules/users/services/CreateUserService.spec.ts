@@ -1,14 +1,17 @@
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import CreateUserService from './CreateUserService';
 import AppError from '../../../shared/errors/AppError';
+import FakeHashProvider from '../../../shared/providers/HashProvider/implementations/FakeHashProvider';
 
 describe('Create User Service', () => {
   let usersRepository: FakeUsersRepository;
+  let hashProvider: FakeHashProvider;
   let service: CreateUserService;
 
   beforeAll(() => {
     usersRepository = new FakeUsersRepository();
-    service = new CreateUserService(usersRepository);
+    hashProvider = new FakeHashProvider();
+    service = new CreateUserService(usersRepository, hashProvider);
   });
 
   afterEach(() => {

@@ -1,12 +1,13 @@
-import { hash } from 'bcryptjs';
 import { uuid } from 'uuidv4';
 import FakeUsersRepository from '../repositories/FakeUsersRepository';
 import SendForgotPasswordEmailService from './SendForgotPasswordEmailService';
+import FakeHashProvider from '../../../shared/providers/HashProvider/implementations/FakeHashProvider';
 import FakeMailProvider from '../../../shared/providers/MailProvider/implementations/FakeMailProvider';
 import FakeTokenProvider from '../../../shared/providers/TokenProvider/implementations/FakeTokenProvider';
 
 describe('Send Forgot Password Email Service', () => {
   let usersRepository: FakeUsersRepository;
+  let hashProvider: FakeHashProvider;
   let mailProvider: FakeMailProvider;
   let tokenProvider: FakeTokenProvider;
   let service: SendForgotPasswordEmailService;
@@ -16,6 +17,7 @@ describe('Send Forgot Password Email Service', () => {
 
   beforeAll(() => {
     usersRepository = new FakeUsersRepository();
+    hashProvider = new FakeHashProvider();
     mailProvider = new FakeMailProvider();
     tokenProvider = new FakeTokenProvider();
     service = new SendForgotPasswordEmailService(
@@ -28,7 +30,6 @@ describe('Send Forgot Password Email Service', () => {
   beforeEach(async () => {
     sendMailSpy = jest.spyOn(mailProvider, 'sendMail');
     generateTokenSpy = jest.spyOn(tokenProvider, 'generate');
-    const password = await hash('Ful4nO*2020', 8);
     usersRepository.table = [
       {
         id,
@@ -36,7 +37,7 @@ describe('Send Forgot Password Email Service', () => {
         email: 'fulano@teste.com.br',
         isProvider: false,
         avatar: null,
-        password,
+        password: await hashProvider.hash('Ful4nO*2020'),
         createdAt: new Date(),
         updatedAt: new Date(),
         deletedAt: null,

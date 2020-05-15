@@ -1,9 +1,9 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
-import { compare } from 'bcryptjs';
 
 import AppError from '../../../shared/errors/AppError';
 import { IUsersRepository } from '../repositories/IUsersRepository';
+import { IHashProvider } from '../../../shared/providers/HashProvider/IHashProvider';
 import { ITokenProvider } from '../../../shared/providers/TokenProvider/ITokenProvider';
 
 interface IServiceRequest {
@@ -16,6 +16,8 @@ class AuthenticateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
     @inject('TokenProvider')
     private tokenProvider: ITokenProvider,
   ) {}
@@ -30,7 +32,10 @@ class AuthenticateUserService {
       throw new AppError('Invalid credentials', 403);
     }
 
-    const comparePassword = await compare(password, user.password);
+    const comparePassword = await this.hashProvider.compare(
+      password,
+      user.password,
+    );
 
     if (!comparePassword) {
       throw new AppError('Invalid credentials', 403);
