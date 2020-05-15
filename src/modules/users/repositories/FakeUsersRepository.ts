@@ -37,10 +37,12 @@ class FakeUsersRepository implements IUsersRepository {
     fields: (keyof FakeUser)[],
   ): Promise<FakeUser[]> {
     const users = this.table.slice(10 * (page - 1), 10).map(user => {
-      Object.keys(user)
-        .filter(key => !fields.includes(key as keyof FakeUser))
-        // eslint-disable-next-line no-param-reassign
-        .forEach(key => delete user[key as keyof FakeUser]);
+      if (fields.length) {
+        Object.keys(user)
+          .filter(key => !fields.includes(key as keyof FakeUser))
+          // eslint-disable-next-line no-param-reassign
+          .forEach(key => delete user[key as keyof FakeUser]);
+      }
       return user;
     });
     return users;
@@ -54,10 +56,12 @@ class FakeUsersRepository implements IUsersRepository {
     if (!user) {
       return undefined;
     }
-    Object.keys(user)
-      .filter(key => !fields.includes(key as keyof FakeUser))
-      // eslint-disable-next-line no-param-reassign
-      .forEach(key => delete user[key as keyof FakeUser]);
+    if (fields.length) {
+      Object.keys(user)
+        .filter(key => !fields.includes(key as keyof FakeUser))
+        // eslint-disable-next-line no-param-reassign
+        .forEach(key => delete user[key as keyof FakeUser]);
+    }
     return user;
   }
 
@@ -69,10 +73,12 @@ class FakeUsersRepository implements IUsersRepository {
     if (!user) {
       return undefined;
     }
-    Object.keys(user)
-      .filter(key => !fields.includes(key as keyof FakeUser))
-      // eslint-disable-next-line no-param-reassign
-      .forEach(key => delete user[key as keyof FakeUser]);
+    if (fields.length) {
+      Object.keys(user)
+        .filter(key => !fields.includes(key as keyof FakeUser))
+        // eslint-disable-next-line no-param-reassign
+        .forEach(key => delete user[key as keyof FakeUser]);
+    }
     return user;
   }
 }
