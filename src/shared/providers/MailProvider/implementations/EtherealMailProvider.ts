@@ -1,11 +1,18 @@
+import 'reflect-metadata';
+import { injectable, inject } from 'tsyringe';
 import nodemailer from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
 import { IMailProvider, IMailDTO } from '../IMailProvider';
+import { ITemplateProvider } from '../../TemplateProvider/ITemplateProvider';
 
+@injectable()
 class EtherealMailProvider implements IMailProvider {
   private client: Mail;
 
-  constructor() {
+  constructor(
+    @inject('TemplateProvider')
+    private templateProvider: ITemplateProvider,
+  ) {
     (async (): Promise<void> => {
       const testAccount = await nodemailer.createTestAccount();
       const transporter = nodemailer.createTransport({
@@ -26,7 +33,10 @@ class EtherealMailProvider implements IMailProvider {
       from: 'Equipe GoBarber <equipe@gobarber.com.br>',
       to: dto.to,
       subject: dto.subject,
-      html: dto.body,
+      html: await this.templateProvider.parse(
+        dto.body.template,
+        dto.body.values,
+      ),
     });
 
     // eslint-disable-next-line no-console

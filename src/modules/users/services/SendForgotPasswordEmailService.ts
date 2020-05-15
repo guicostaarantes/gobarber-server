@@ -1,4 +1,6 @@
 import 'reflect-metadata';
+import fs from 'fs';
+import path from 'path';
 import { inject, injectable } from 'tsyringe';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 import { IMailProvider } from '../../../shared/providers/MailProvider/IMailProvider';
@@ -31,7 +33,15 @@ class SendForgotPasswordEmailService {
     await this.mailProvider.sendMail({
       to: [email],
       subject: 'Recuperação de senha',
-      body: `Acesse este link para recuperar sua senha: ${token}`,
+      body: {
+        template: await fs.promises.readFile(
+          path.join(__dirname, '..', 'templates', 'forgot-password.hbs'),
+          { encoding: 'utf-8' },
+        ),
+        values: {
+          link: `${process.env.CLIENT_BASE_URL}/resetPassword?token=${token}`,
+        },
+      },
     });
   }
 }

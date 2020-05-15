@@ -1,7 +1,12 @@
+import { ITemplateValues } from '../TemplateProvider/ITemplateProvider';
+
 export interface IMailDTO {
   to: string[];
   subject: string;
-  body: string;
+  body: {
+    template: string;
+    values: ITemplateValues;
+  };
 }
 
 export interface IMailProvider {

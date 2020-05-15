@@ -51,11 +51,11 @@ describe('Send Forgot Password Email Service', () => {
         email: 'fulano@teste.com.br',
       }),
     ).resolves.toBeUndefined();
-    expect(sendMailSpy).toHaveBeenCalledWith({
-      to: ['fulano@teste.com.br'],
-      subject: 'Recuperação de senha',
-      body: 'Acesse este link para recuperar sua senha: mock-generated-token',
-    });
+    expect(sendMailSpy).toHaveReturned();
+    expect(mailProvider.mails[0].to).toEqual(['fulano@teste.com.br']);
+    expect(mailProvider.mails[0].body.values.link).toEqual(
+      `${process.env.CLIENT_BASE_URL}/resetPassword?token=mock-generated-token`,
+    );
   });
 
   it('Should not be able to send email to non existing account, but no error should be sent to client', async () => {
@@ -73,7 +73,7 @@ describe('Send Forgot Password Email Service', () => {
         email: 'fulano@teste.com.br',
       }),
     ).resolves.toBeUndefined();
-    expect(sendMailSpy).toHaveBeenCalledTimes(1);
+    expect(sendMailSpy).toHaveReturnedTimes(1);
     await expect(
       service.execute({
         email: 'fulano@teste.com.br',

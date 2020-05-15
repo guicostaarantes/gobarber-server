@@ -6,6 +6,7 @@ import UsersRepository from '../../modules/users/infra/database/repositories/Use
 import DiskStorageProvider from '../providers/StorageProvider/implementations/DiskStorageProvider';
 import EtherealMailProvider from '../providers/MailProvider/implementations/EtherealMailProvider';
 import JWTokenProvider from '../providers/TokenProvider/implementations/JWTokenProvider';
+import HandlebarsTemplateProvider from '../providers/TemplateProvider/implementations/HandlebarsTemplateProvider';
 
 import { IAppointmentsRepository } from '../../modules/appointments/repositories/IAppointmentsRepository';
 import { IUsersRepository } from '../../modules/users/repositories/IUsersRepository';
@@ -13,6 +14,7 @@ import { IUsersRepository } from '../../modules/users/repositories/IUsersReposit
 import { IStorageProvider } from '../providers/StorageProvider/IStorageProvider';
 import { IMailProvider } from '../providers/MailProvider/IMailProvider';
 import { ITokenProvider } from '../providers/TokenProvider/ITokenProvider';
+import { ITemplateProvider } from '../providers/TemplateProvider/ITemplateProvider';
 
 // Repositories
 
@@ -31,9 +33,13 @@ container.registerInstance<IStorageProvider>(
   'StorageProvider',
   new DiskStorageProvider(),
 );
+container.registerInstance<ITemplateProvider>(
+  'TemplateProvider',
+  new HandlebarsTemplateProvider(),
+);
 container.registerInstance<IMailProvider>(
   'MailProvider',
-  new EtherealMailProvider(),
+  container.resolve(EtherealMailProvider),
 );
 container.registerInstance<ITokenProvider>(
   'TokenProvider',
