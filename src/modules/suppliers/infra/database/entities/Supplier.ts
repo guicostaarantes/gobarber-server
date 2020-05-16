@@ -7,24 +7,21 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 
-import IUser from '../../../entities/IUser';
+import ISupplier from '../../../entities/ISupplier';
 
-@Entity('users')
-class User implements IUser {
+@Entity('suppliers')
+class Supplier implements ISupplier {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'full_name' })
-  fullName: string;
+  @Column({ name: 'user_id' })
+  userId: string;
 
   @Column()
-  email: string;
-
-  @Column({ select: false })
-  password: string;
+  latitude: number;
 
   @Column()
-  avatar: string;
+  longitude: number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
@@ -36,4 +33,4 @@ class User implements IUser {
   deletedAt: Date;
 }
 
-export default User;
+export default Supplier;

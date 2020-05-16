@@ -35,7 +35,6 @@ describe('Authenticate User Service', () => {
         id,
         fullName: 'Fulano da Silva',
         email: 'fulano@teste.com.br',
-        isProvider: false,
         avatar: null,
         password: await hashProvider.hash('Ful4nO*2020'),
         createdAt: new Date(),

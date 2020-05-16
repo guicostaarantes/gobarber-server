@@ -16,11 +16,11 @@ export default class CreateAppointments1587600582620
           },
           {
             name: 'consumer_id',
-            type: 'varchar',
+            type: 'uuid',
           },
           {
-            name: 'provider_id',
-            type: 'varchar',
+            name: 'supplier_id',
+            type: 'uuid',
           },
           {
             name: 'start_date',

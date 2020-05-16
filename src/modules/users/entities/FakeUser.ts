@@ -9,8 +9,6 @@ class FakeUser implements IUser {
 
   password: string;
 
-  isProvider: boolean;
-
   avatar: string;
 
   createdAt: Date;
