@@ -86,7 +86,7 @@ class SuppliersRepository implements ISuppliersRepository {
       .createQueryBuilder()
       .select(fields.length ? fields.join(', ') : '*')
       .addSelect(
-        '6371 * acos( cos( radians(latitude) ) * cos( radians($1::real) ) * cos( radians(longitude) - radians($2::real) ) + sin( radians(latitude) ) * sin( radians($1::real) ) ) AS distance',
+        '6371 * acos( cos( radians(latitude) ) * cos( radians($1) ) * cos( radians(longitude) - radians($3) ) + sin( radians(latitude) ) * sin( radians($1) ) ) AS distance',
       )
       .where(
         'ABS(latitude - :latitude) < :tolerance AND ABS((longitude - :longitude) / cos(radians(latitude))) < :tolerance',
