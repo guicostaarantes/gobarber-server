@@ -81,20 +81,17 @@ class SuppliersRepository implements ISuppliersRepository {
     longitude: number,
     fields: (keyof Supplier)[],
   ): Promise<ISupplier[]> {
-    const query = `SELECT * FROM (
-      SELECT ${fields.join(', ')}${
-      fields.length ? ', ' : '*, '
-    }6371 * acos( cos( radians(latitude) ) * cos( radians($1::real) ) * cos( radians(longitude) - radians($2::real) ) + sin( radians(latitude) ) * sin( radians($1::real) ) ) AS distance
-      FROM suppliers
-      ORDER BY distance ASC LIMIT 10 OFFSET $3::int
-    ) AS ss
-  WHERE
-    distance < 6371 * 25;`;
-    const suppliers = (await this.baseRepository.query(query, [
-      latitude,
-      longitude,
-      10 * (page - 1),
-    ])) as ISupplier[];
+    const suppliers = await this.baseRepository
+      .createQueryBuilder()
+      .select(fields.length ? fields.join(', ') : '*')
+      .addSelect(
+        '6371 * acos( cos( radians(latitude) ) * cos( radians($1::real) ) * cos( radians(longitude) - radians($2::real) ) + sin( radians(latitude) ) * sin( radians($1::real) ) ) AS distance',
+      )
+      .where(
+        'ABS(latitude - :latitude) < 0.2 AND ABS((longitude - :longitude) / cos(radians(latitude))) < 0.2',
+        { latitude, longitude },
+      )
+      .getRawMany();
     return suppliers;
   }
 }
