@@ -83,6 +83,7 @@ class FakeSuppliersRepository implements ISuppliersRepository {
     page: number,
     latitude: number,
     longitude: number,
+    tolerance: number,
     fields: (keyof FakeSupplier)[],
   ): Promise<FakeSupplier[]> {
     const suppliers = this.table.map(supplier => {
@@ -100,6 +101,14 @@ class FakeSuppliersRepository implements ISuppliersRepository {
       };
     });
     suppliers
+      .filter(
+        supplier =>
+          Math.abs(latitude - supplier.latitude) < tolerance &&
+          Math.abs(
+            (longitude - supplier.longitude) /
+              Math.cos((latitude * Math.PI) / 180),
+          ) < tolerance,
+      )
       .sort((a, b) => (a.distance > b.distance ? 1 : -1))
       .slice(10 * (page - 1), 10)
       .map(supplier => {

@@ -15,6 +15,7 @@ export interface ISuppliersRepository {
     page: number,
     latitude: number,
     longitude: number,
+    tolerance: number,
     fields: (keyof ISupplier)[],
   ): Promise<ISupplier[]>;
 }

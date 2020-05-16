@@ -79,6 +79,7 @@ class SuppliersRepository implements ISuppliersRepository {
     page: number,
     latitude: number,
     longitude: number,
+    tolerance: number,
     fields: (keyof Supplier)[],
   ): Promise<ISupplier[]> {
     const suppliers = await this.baseRepository
@@ -88,8 +89,8 @@ class SuppliersRepository implements ISuppliersRepository {
         '6371 * acos( cos( radians(latitude) ) * cos( radians($1::real) ) * cos( radians(longitude) - radians($2::real) ) + sin( radians(latitude) ) * sin( radians($1::real) ) ) AS distance',
       )
       .where(
-        'ABS(latitude - :latitude) < 0.2 AND ABS((longitude - :longitude) / cos(radians(latitude))) < 0.2',
-        { latitude, longitude },
+        'ABS(latitude - :latitude) < :tolerance AND ABS((longitude - :longitude) / cos(radians(latitude))) < :tolerance',
+        { latitude, longitude, tolerance },
       )
       .getRawMany();
     return suppliers;
