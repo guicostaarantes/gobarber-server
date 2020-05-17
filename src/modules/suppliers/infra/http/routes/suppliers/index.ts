@@ -4,17 +4,19 @@ import ensureAuthenticated from '../../../../../../shared/infra/http/middleware/
 import getSupplier from './middleware/getSupplier';
 import getSuppliers from './middleware/getSuppliers';
 import postSupplier from './middleware/postSupplier';
+import patchSupplier from './middleware/patchSupplier';
+import delSupplier from './middleware/delSupplier';
 
 const suppliersRouter = Router();
 
 suppliersRouter.get('/', ensureAuthenticated, getSuppliers);
 
-suppliersRouter.get('/:userId', ensureAuthenticated, getSupplier);
+suppliersRouter.get('/:id', ensureAuthenticated, getSupplier);
 
 suppliersRouter.post('/', ensureAuthenticated, postSupplier);
 
-// suppliersRouter.patch('/', ensureAuthenticated, patchUser);
+suppliersRouter.patch('/', ensureAuthenticated, patchSupplier);
 
-// suppliersRouter.delete('/:id', async (req, res) => {});
+suppliersRouter.delete('/', ensureAuthenticated, delSupplier);
 
 export default suppliersRouter;

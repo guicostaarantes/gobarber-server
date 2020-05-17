@@ -27,6 +27,24 @@ class FakeSuppliersRepository implements ISuppliersRepository {
     return supplier;
   }
 
+  public async update(supplier: FakeSupplier): Promise<FakeSupplier> {
+    const supplierIndex = this.table.findIndex(
+      findSupplier => findSupplier.id === supplier.id,
+    );
+
+    this.table[supplierIndex] = supplier;
+
+    return supplier;
+  }
+
+  public async delete(id: string): Promise<void> {
+    const supplierIndex = this.table.findIndex(
+      findSupplier => findSupplier.id === id,
+    );
+
+    this.table.splice(supplierIndex, 1);
+  }
+
   public async find(
     page: number,
     fields: (keyof FakeSupplier)[],

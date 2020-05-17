@@ -19,8 +19,16 @@ class SuppliersRepository implements ISuppliersRepository {
     this.baseRepository = getRepository(Supplier);
   }
 
-  public async create({ userId }: ICreateSupplierDTO): Promise<Supplier> {
-    const newSupplier = this.baseRepository.create({ userId });
+  public async create({
+    userId,
+    latitude,
+    longitude,
+  }: ICreateSupplierDTO): Promise<Supplier> {
+    const newSupplier = this.baseRepository.create({
+      userId,
+      latitude,
+      longitude,
+    });
 
     const supplier = await this.baseRepository.save(newSupplier);
 
@@ -30,6 +38,10 @@ class SuppliersRepository implements ISuppliersRepository {
   public async update(supplier: Supplier): Promise<Supplier> {
     await this.baseRepository.save(supplier);
     return supplier;
+  }
+
+  public async delete(id: string): Promise<void> {
+    await this.baseRepository.softDelete(id);
   }
 
   public async find(
