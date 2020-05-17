@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 import { IUsersRepository } from '../repositories/IUsersRepository';
 import AppError from '../../../shared/errors/AppError';
+import IUser from '../entities/IUser';
 
 interface IServiceRequest {
   userId: string;
@@ -18,7 +19,7 @@ class UpdateUserProfileService {
   public async execute({
     userId,
     ...changingFields
-  }: IServiceRequest): Promise<void> {
+  }: IServiceRequest): Promise<IUser> {
     const user = await this.usersRepository.findById(userId, []);
 
     const invalid = Object.keys(changingFields).some(field =>
@@ -32,6 +33,8 @@ class UpdateUserProfileService {
     const newUser = { ...user, ...changingFields };
 
     await this.usersRepository.update(newUser);
+
+    return newUser;
   }
 }
 

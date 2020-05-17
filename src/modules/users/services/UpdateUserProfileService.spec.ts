@@ -34,7 +34,7 @@ describe('Update User Profile Service', () => {
   it('Should be able to change full name of user', async () => {
     await expect(
       service.execute({ userId: id, fullName: 'Ciclano da Silva' }),
-    ).resolves.toBeUndefined();
+    ).resolves.toBeTruthy();
     expect(usersRepository.table[0].fullName).toEqual('Ciclano da Silva');
     expect(usersRepository.table[0].email).toEqual('fulano@teste.com.br');
   });
@@ -47,7 +47,7 @@ describe('Update User Profile Service', () => {
   });
 
   it('Should keep the full name of user if no name is informed', async () => {
-    await expect(service.execute({ userId: id })).resolves.toBeUndefined();
+    await expect(service.execute({ userId: id })).resolves.toBeTruthy();
     expect(usersRepository.table[0].fullName).toEqual('Fulano da Silva');
   });
 });
