@@ -1,9 +1,155 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2020-05-12T22:34:25.751Z",
+  "__export_date": "2020-05-17T22:58:36.096Z",
   "__export_source": "insomnia.desktop.app:v7.1.1",
   "resources": [
+    {
+      "_id": "req_93ad7b8132a34fde8520102774f3b537",
+      "authentication": { "token": "{{token}}", "type": "bearer" },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"latitude\": -19.9224033,\t\n\t\"longitude\": -43.9644464\n}"
+      },
+      "created": 1589578715392,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_bc772f45f74a4c258769567a17d70b37",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1587636380440.875,
+      "method": "POST",
+      "modified": 1589744337929,
+      "name": "/",
+      "parameters": [],
+      "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/suppliers",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
+      "created": 1589578705986,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1589578705986,
+      "modified": 1589578705986,
+      "name": "/suppliers",
+      "parentId": "wrk_90182e5308354c0eb1e826bd53c2b59a",
+      "_type": "request_group"
+    },
+    {
+      "_id": "wrk_90182e5308354c0eb1e826bd53c2b59a",
+      "created": 1587603737959,
+      "description": "",
+      "modified": 1587603737959,
+      "name": "GoBarber",
+      "parentId": null,
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_ccf6aa0fb3eb44f8b8d7b880d9b49221",
+      "authentication": {
+        "disabled": false,
+        "token": "{{ token  }}",
+        "type": "bearer"
+      },
+      "body": {},
+      "created": 1589580373787,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1587636380390.875,
+      "method": "GET",
+      "modified": 1589638420354,
+      "name": "/",
+      "parameters": [],
+      "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/suppliers?position=-19.928084,-43.961166&tolerance=0.02",
+      "_type": "request"
+    },
+    {
+      "_id": "req_8f118b57ad4644189d6e989e503b815b",
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "body": {},
+      "created": 1589580378912,
+      "description": "",
+      "headers": [
+        {
+          "description": "",
+          "id": "pair_06822fcce2374c0aa52d55dac66abae4",
+          "name": "",
+          "value": ""
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1587636380340.875,
+      "method": "GET",
+      "modified": 1589746662831,
+      "name": "/me",
+      "parameters": [],
+      "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/suppliers/me",
+      "_type": "request"
+    },
+    {
+      "_id": "req_ef6e63704fee41a3a506ea31d20a61de",
+      "authentication": {
+        "disabled": false,
+        "token": "{{ token  }}",
+        "type": "bearer"
+      },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"latitude\": 51.500246,\n\t\"longitude\": -0.1306106\n}"
+      },
+      "created": 1589745406065,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_c149b81a149c4886b7a811b2b96770c4",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1587636380290.875,
+      "method": "PATCH",
+      "modified": 1589745499711,
+      "name": "/",
+      "parameters": [],
+      "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/suppliers",
+      "_type": "request"
+    },
     {
       "_id": "req_c0b409de09a24e5293303425c4b9fdcf",
       "authentication": {},
@@ -23,7 +169,7 @@
       "isPrivate": false,
       "metaSortKey": -1587631823457,
       "method": "POST",
-      "modified": 1589322770033,
+      "modified": 1589639266096,
       "name": "/",
       "parameters": [],
       "parentId": "fld_b16ebe1dadb2486b9bb0716fb5208894",
@@ -47,15 +193,6 @@
       "name": "/sessions",
       "parentId": "wrk_90182e5308354c0eb1e826bd53c2b59a",
       "_type": "request_group"
-    },
-    {
-      "_id": "wrk_90182e5308354c0eb1e826bd53c2b59a",
-      "created": 1587603737959,
-      "description": "",
-      "modified": 1587603737959,
-      "name": "GoBarber",
-      "parentId": null,
-      "_type": "workspace"
     },
     {
       "_id": "req_67b5be2a17004cf498e51ece6a8b6bdd",
@@ -143,7 +280,7 @@
       "isPrivate": false,
       "metaSortKey": -1587636380444,
       "method": "POST",
-      "modified": 1589322811983,
+      "modified": 1589743804365,
       "name": "/",
       "parameters": [],
       "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
@@ -169,6 +306,38 @@
       "_type": "request_group"
     },
     {
+      "_id": "req_0a1e580d3ab442fdb468af41d9481e3b",
+      "authentication": {},
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"email\": \"fulano@teste.com.br\"\n}"
+      },
+      "created": 1589366807069,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_852b35c4321a4cddac7232e74941dd72",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1587636380437.75,
+      "method": "POST",
+      "modified": 1589366819908,
+      "name": "/forgot-password",
+      "parameters": [],
+      "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/users/forgot-password",
+      "_type": "request"
+    },
+    {
       "_id": "req_1ab1400859b946cf86dd2bfbb9a6145c",
       "authentication": {
         "disabled": false,
@@ -180,9 +349,9 @@
       "description": "",
       "headers": [],
       "isPrivate": false,
-      "metaSortKey": -1587636380431.5,
+      "metaSortKey": -1587636380428.375,
       "method": "GET",
-      "modified": 1589322814454,
+      "modified": 1589580370133,
       "name": "/",
       "parameters": [],
       "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
@@ -267,6 +436,70 @@
       "_type": "request"
     },
     {
+      "_id": "req_9fca9afa39c841199a09821e1fea76b6",
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"fullName\": \"Ciclano da Silva Gomes\"\n}"
+      },
+      "created": 1589549303158,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_c2344be083e7498ea7204cbb6b81cd20",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1587635241159.75,
+      "method": "PATCH",
+      "modified": 1589549724262,
+      "name": "/",
+      "parameters": [],
+      "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/users",
+      "_type": "request"
+    },
+    {
+      "_id": "req_bbd65adf0b9e48d8bf21d976fc715333",
+      "authentication": { "token": "", "type": "bearer" },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMmU3NzEzYi1iNzg0LTQ4YzEtYmUzNy1mN2M5ZTJkYmYzZDEiLCJ0eXAiOiJmb3Jnb3QtcGFzc3dvcmQiLCJpYXQiOjE1ODk0OTI1MDUsImV4cCI6MTU4OTUyMTMwNX0.77elYCysvQrnrlWlbi01u9Sk2FW0Bi7bIts4XGz4noI\",\n\t\"newPassword\": \"Ful4nO*2022\"\n}"
+      },
+      "created": 1589464808499,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_c2344be083e7498ea7204cbb6b81cd20",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1587634101925.5,
+      "method": "PATCH",
+      "modified": 1589493154948,
+      "name": "/forgot-password",
+      "parameters": [],
+      "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/users/forgot-password",
+      "_type": "request"
+    },
+    {
       "_id": "env_121790294f49b663e4e920655c9e070ac2b54333",
       "color": null,
       "created": 1587603738030,
@@ -294,12 +527,12 @@
       "created": 1587603750432,
       "data": {
         "base_url": "http://localhost:3333",
-        "token": ""
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZmQ4YjhiMy05YTYxLTQ4NDQtYTY5YS00MzBmMTJjNzA4ZGYiLCJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE1ODk3NDM4MjksImV4cCI6MTU4OTc3MjYyOX0.9fsPWTeO6GFQ9slYWekmW66l1lZllaal_derr8lU8-8"
       },
       "dataPropertyOrder": { "&": ["base_url", "token"] },
       "isPrivate": false,
       "metaSortKey": 1587603750432,
-      "modified": 1589320975140,
+      "modified": 1589743849228,
       "name": "Development",
       "parentId": "env_121790294f49b663e4e920655c9e070ac2b54333",
       "_type": "environment"

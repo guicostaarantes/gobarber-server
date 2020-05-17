@@ -40,10 +40,6 @@ class SuppliersRepository implements ISuppliersRepository {
     return supplier;
   }
 
-  public async delete(id: string): Promise<void> {
-    await this.baseRepository.softDelete(id);
-  }
-
   public async find(
     page: number,
     fields: (keyof Supplier)[],

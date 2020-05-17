@@ -37,14 +37,6 @@ class FakeSuppliersRepository implements ISuppliersRepository {
     return supplier;
   }
 
-  public async delete(id: string): Promise<void> {
-    const supplierIndex = this.table.findIndex(
-      findSupplier => findSupplier.id === id,
-    );
-
-    this.table.splice(supplierIndex, 1);
-  }
-
   public async find(
     page: number,
     fields: (keyof FakeSupplier)[],

@@ -9,7 +9,6 @@ export interface ICreateSupplierDTO {
 export interface ISuppliersRepository {
   create(dto: ICreateSupplierDTO): Promise<ISupplier>;
   update(supplier: ISupplier): Promise<ISupplier>;
-  delete(id: string): Promise<void>;
   find(page: number, fields: (keyof ISupplier)[]): Promise<ISupplier[]>;
   findById(id: string, fields: (keyof ISupplier)[]): Promise<ISupplier>;
   findByUserId(userId: string, fields: (keyof ISupplier)[]): Promise<ISupplier>;
