@@ -42,7 +42,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
     startDate,
     endDate,
   }: IFindAppointmentClashDTO): Promise<Appointment> {
-    const appointment = this.baseRepository
+    const appointment = await this.baseRepository
       .createQueryBuilder()
       .where('start_date >= :startDate AND start_date < :endDate', {
         startDate,

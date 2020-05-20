@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2020-05-17T22:58:36.096Z",
+  "__export_date": "2020-05-20T11:25:11.915Z",
   "__export_source": "insomnia.desktop.app:v7.1.1",
   "resources": [
     {
@@ -299,8 +299,8 @@
       "description": "",
       "environment": {},
       "environmentPropertyOrder": null,
-      "metaSortKey": -1589322723619,
-      "modified": 1589322723619,
+      "metaSortKey": -1589322728431,
+      "modified": 1589889418823,
       "name": "/users",
       "parentId": "wrk_90182e5308354c0eb1e826bd53c2b59a",
       "_type": "request_group"
@@ -500,6 +500,82 @@
       "_type": "request"
     },
     {
+      "_id": "req_7faebc5685d8458fbf40ce0ce3029820",
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"startDate\": \"2020-06-25 15:00:00\",\n\t\"endDate\": \"2020-06-25 18:00:00\"\n}"
+      },
+      "created": 1589889429064,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_7e326b5838504047b15dd9a9cb9660e9",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1589889429065,
+      "method": "POST",
+      "modified": 1589973766959,
+      "name": "/",
+      "parameters": [],
+      "parentId": "fld_c2e6a0cb5bf6492ca5cae818397a5b99",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/vacancies",
+      "_type": "request"
+    },
+    {
+      "_id": "fld_c2e6a0cb5bf6492ca5cae818397a5b99",
+      "created": 1589889414965,
+      "description": "",
+      "environment": {},
+      "environmentPropertyOrder": null,
+      "metaSortKey": -1589322726827,
+      "modified": 1589889416872,
+      "name": "/vacancies",
+      "parentId": "wrk_90182e5308354c0eb1e826bd53c2b59a",
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_3a3ef76d2981473e8fbb4fa472a01afb",
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"startDate\": \"2020-06-25 18:45:00\",\n\t\"endDate\": \"2020-06-25 21:00:00\"\n}"
+      },
+      "created": 1589929302047,
+      "description": "",
+      "headers": [
+        {
+          "id": "pair_7e326b5838504047b15dd9a9cb9660e9",
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1588762904754.5,
+      "method": "DELETE",
+      "modified": 1589973441140,
+      "name": "/",
+      "parameters": [],
+      "parentId": "fld_c2e6a0cb5bf6492ca5cae818397a5b99",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/vacancies",
+      "_type": "request"
+    },
+    {
       "_id": "env_121790294f49b663e4e920655c9e070ac2b54333",
       "color": null,
       "created": 1587603738030,
@@ -527,12 +603,12 @@
       "created": 1587603750432,
       "data": {
         "base_url": "http://localhost:3333",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZmQ4YjhiMy05YTYxLTQ4NDQtYTY5YS00MzBmMTJjNzA4ZGYiLCJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE1ODk3NDM4MjksImV4cCI6MTU4OTc3MjYyOX0.9fsPWTeO6GFQ9slYWekmW66l1lZllaal_derr8lU8-8"
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZmQ4YjhiMy05YTYxLTQ4NDQtYTY5YS00MzBmMTJjNzA4ZGYiLCJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE1ODk5NzMwMjEsImV4cCI6MTU5MDAwMTgyMX0.VqmhB_D-urhFpiXNRySU-pc-hyXh155a0NiHhKRhbdY"
       },
       "dataPropertyOrder": { "&": ["base_url", "token"] },
       "isPrivate": false,
       "metaSortKey": 1587603750432,
-      "modified": 1589743849228,
+      "modified": 1589973029691,
       "name": "Development",
       "parentId": "env_121790294f49b663e4e920655c9e070ac2b54333",
       "_type": "environment"
