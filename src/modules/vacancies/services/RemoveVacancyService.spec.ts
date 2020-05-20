@@ -1,13 +1,13 @@
 import { uuid } from 'uuidv4';
 import FakeSuppliersRepository from '../../suppliers/repositories/FakeSuppliersRepository';
 import FakeVacanciesRepository from '../repositories/FakeVacanciesRepository';
-import CreateAntiVacancyService from './CreateAntiVacancyService';
+import RemoveVacancyService from './RemoveVacancyService';
 import AppError from '../../../shared/errors/AppError';
 
-describe('Create Anti Vacancy Service', () => {
+describe('Remove Vacancy Service', () => {
   let suppliersRepository: FakeSuppliersRepository;
   let vacanciesRepository: FakeVacanciesRepository;
-  let service: CreateAntiVacancyService;
+  let service: RemoveVacancyService;
   const id = uuid();
   const date1 = new Date(
     new Date().getFullYear(),
@@ -25,7 +25,7 @@ describe('Create Anti Vacancy Service', () => {
   beforeAll(() => {
     suppliersRepository = new FakeSuppliersRepository();
     vacanciesRepository = new FakeVacanciesRepository();
-    service = new CreateAntiVacancyService(
+    service = new RemoveVacancyService(
       suppliersRepository,
       vacanciesRepository,
     );
@@ -48,7 +48,7 @@ describe('Create Anti Vacancy Service', () => {
     ];
   });
 
-  it('Should create anti-vacancy', async () => {
+  it('Should remove vacancy', async () => {
     const date3 = new Date(
       new Date().getFullYear(),
       new Date().getMonth(),
@@ -69,7 +69,7 @@ describe('Create Anti Vacancy Service', () => {
     expect(vacanciesRepository.table.length).toEqual(2);
   });
 
-  it('Should not create anti-vacancy if startDate is later than endDate', async () => {
+  it('Should not remove vacancy if startDate is later than endDate', async () => {
     await expect(
       service.execute({
         supplierId: id,
@@ -79,7 +79,7 @@ describe('Create Anti Vacancy Service', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not create anti-vacancy if startDate and endDate are equal', async () => {
+  it('Should not remove vacancy if startDate and endDate are equal', async () => {
     await expect(
       service.execute({
         supplierId: id,
@@ -89,7 +89,7 @@ describe('Create Anti Vacancy Service', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not create anti-vacancy if endDate is in the past', async () => {
+  it('Should not remove vacancy if endDate is in the past', async () => {
     const date3 = new Date(
       new Date().getFullYear(),
       new Date().getMonth(),

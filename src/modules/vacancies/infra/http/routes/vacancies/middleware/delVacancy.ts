@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { parseISO } from 'date-fns';
 
 import SuppliersRepository from '../../../../../../suppliers/infra/database/repositories/SuppliersRepository';
-import CreateAntiVacancyService from '../../../../../services/CreateAntiVacancyService';
+import RemoveVacancyService from '../../../../../services/RemoveVacancyService';
 
 export default async (req: Request, res: Response): Promise<void> => {
   let { startDate, endDate } = req.body;
@@ -13,7 +13,7 @@ export default async (req: Request, res: Response): Promise<void> => {
 
   const suppliersRepository = new SuppliersRepository();
 
-  const service = container.resolve(CreateAntiVacancyService);
+  const service = container.resolve(RemoveVacancyService);
 
   const { id } = await suppliersRepository.findByUserId(req.tokenUserId, [
     'id',

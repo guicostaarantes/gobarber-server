@@ -13,7 +13,7 @@ interface IServiceRequest {
 }
 
 @injectable()
-class CreateAntiVacancyService {
+class RemoveVacancyService {
   constructor(
     @inject('SuppliersRepository')
     private suppliersRepository: ISuppliersRepository,
@@ -31,7 +31,7 @@ class CreateAntiVacancyService {
     }
 
     if (endDate <= new Date()) {
-      throw new AppError('Cannot create an anti vacancy in the past.', 400);
+      throw new AppError('Cannot remove a vacancy in the past.', 400);
     }
 
     const supplier = await this.suppliersRepository.findById(supplierId, []);
@@ -108,4 +108,4 @@ class CreateAntiVacancyService {
   }
 }
 
-export default CreateAntiVacancyService;
+export default RemoveVacancyService;
