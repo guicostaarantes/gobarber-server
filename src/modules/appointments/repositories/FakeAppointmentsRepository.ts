@@ -2,7 +2,7 @@ import { uuid } from 'uuidv4';
 import {
   IAppointmentsRepository,
   ICreateAppointmentDTO,
-  IFindAppointmentClashDTO,
+  IFindAppointmentDTO,
 } from './IAppointmentsRepository';
 import FakeAppointment from '../entities/FakeAppointment';
 
@@ -16,7 +16,7 @@ export default class FakeAppointmentsRepository
 
   public async create({
     consumerId,
-    providerId,
+    supplierId,
     startDate,
     endDate,
   }: ICreateAppointmentDTO): Promise<FakeAppointment> {
@@ -24,7 +24,7 @@ export default class FakeAppointmentsRepository
 
     appointment.id = uuid();
     appointment.consumerId = consumerId;
-    appointment.providerId = providerId;
+    appointment.supplierId = supplierId;
     appointment.startDate = startDate;
     appointment.endDate = endDate;
     appointment.createdAt = new Date();
@@ -44,17 +44,15 @@ export default class FakeAppointmentsRepository
     );
   }
 
-  public async findClash({
-    providerId,
+  public async findBySupplierId({
+    supplierId,
     startDate,
     endDate,
-  }: IFindAppointmentClashDTO): Promise<FakeAppointment> {
-    return this.table.find(
+  }: IFindAppointmentDTO): Promise<FakeAppointment[]> {
+    return this.table.filter(
       appointment =>
-        appointment.providerId === providerId &&
-        ((appointment.startDate >= startDate &&
-          appointment.startDate < endDate) ||
-          (appointment.endDate > startDate && appointment.endDate <= endDate)),
+        appointment.supplierId === supplierId &&
+        !(appointment.endDate <= startDate || endDate <= appointment.startDate),
     );
   }
 }

@@ -3,7 +3,7 @@ export default class FakeAppointment {
 
   consumerId: string;
 
-  providerId: string;
+  supplierId: string;
 
   startDate: Date;
 

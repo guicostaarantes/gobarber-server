@@ -41,13 +41,11 @@ class FakeVacanciesRepository implements IVacanciesRepository {
     startDate,
     endDate,
   }: IFindVacancyDTO): Promise<FakeVacancy[]> {
-    return this.table.filter(vacancy => {
-      return (
+    return this.table.filter(
+      vacancy =>
         vacancy.supplierId === supplierId &&
-        ((startDate >= vacancy.startDate && startDate <= vacancy.endDate) ||
-          (endDate >= vacancy.startDate && endDate <= vacancy.endDate))
-      );
-    });
+        !(vacancy.endDate < startDate || endDate < vacancy.startDate),
+    );
   }
 }
 export default FakeVacanciesRepository;

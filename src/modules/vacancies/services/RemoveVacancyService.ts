@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
 
 import IVacancy from '../entities/IVacancy';
+import { IAppointmentsRepository } from '../../appointments/repositories/IAppointmentsRepository';
 import { ISuppliersRepository } from '../../suppliers/repositories/ISuppliersRepository';
 import { IVacanciesRepository } from '../repositories/IVacanciesRepository';
 import AppError from '../../../shared/errors/AppError';
@@ -15,6 +16,8 @@ interface IServiceRequest {
 @injectable()
 class RemoveVacancyService {
   constructor(
+    @inject('AppointmentsRepository')
+    private appointmentsRepository: IAppointmentsRepository,
     @inject('SuppliersRepository')
     private suppliersRepository: ISuppliersRepository,
     @inject('VacanciesRepository')
@@ -32,6 +35,19 @@ class RemoveVacancyService {
 
     if (endDate <= new Date()) {
       throw new AppError('Cannot remove a vacancy in the past.', 400);
+    }
+
+    const appointments = await this.appointmentsRepository.findBySupplierId({
+      supplierId,
+      startDate,
+      endDate,
+    });
+
+    if (appointments.length) {
+      throw new AppError(
+        'Cannot remove a vacancy if there are appointments in the period.',
+        409,
+      );
     }
 
     const supplier = await this.suppliersRepository.findById(supplierId, []);

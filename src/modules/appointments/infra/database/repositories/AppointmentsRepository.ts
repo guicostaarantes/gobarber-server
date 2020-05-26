@@ -2,7 +2,7 @@ import { Repository, getRepository } from 'typeorm';
 
 import Appointment from '../entities/Appointment';
 import {
-  IFindAppointmentClashDTO,
+  IFindAppointmentDTO,
   IAppointmentsRepository,
   ICreateAppointmentDTO,
 } from '../../../repositories/IAppointmentsRepository';
@@ -16,13 +16,13 @@ class AppointmentsRepository implements IAppointmentsRepository {
 
   public async create({
     consumerId,
-    providerId,
+    supplierId,
     startDate,
     endDate,
   }: ICreateAppointmentDTO): Promise<Appointment> {
     const newAppointment = this.baseRepository.create({
       consumerId,
-      providerId,
+      supplierId,
       startDate,
       endDate,
     });
@@ -37,25 +37,21 @@ class AppointmentsRepository implements IAppointmentsRepository {
     return appointments;
   }
 
-  public async findClash({
-    providerId,
+  public async findBySupplierId({
+    supplierId,
     startDate,
     endDate,
-  }: IFindAppointmentClashDTO): Promise<Appointment> {
-    const appointment = await this.baseRepository
+  }: IFindAppointmentDTO): Promise<Appointment[]> {
+    const appointments = await this.baseRepository
       .createQueryBuilder()
-      .where('start_date >= :startDate AND start_date < :endDate', {
+      .where('supplier_id = :supplierId', { supplierId })
+      .andWhere('NOT (end_date <= :startDate OR :endDate <= start_date)', {
         startDate,
         endDate,
       })
-      .orWhere('end_date > :startDate AND end_date <= :endDate', {
-        startDate,
-        endDate,
-      })
-      .andWhere('provider_id = :pid', { pid: providerId })
-      .getOne();
+      .getMany();
 
-    return appointment;
+    return appointments;
   }
 }
 

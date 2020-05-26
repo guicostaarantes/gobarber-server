@@ -40,13 +40,11 @@ class VacanciesRepository implements IVacanciesRepository {
   }: IFindVacancyDTO): Promise<Vacancy[]> {
     const vacancies = await this.baseRepository
       .createQueryBuilder()
-      .where('(:startDate >= start_date AND :startDate <= end_date)', {
+      .where('supplier_id = :supplierId', { supplierId })
+      .andWhere('NOT (end_date < :startDate OR :endDate < start_date)', {
         startDate,
-      })
-      .orWhere('(:endDate >= start_date AND :endDate <= end_date)', {
         endDate,
       })
-      .andWhere('supplier_id = :sid', { sid: supplierId })
       .getMany();
 
     return vacancies;

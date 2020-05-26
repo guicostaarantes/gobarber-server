@@ -6,7 +6,7 @@ import IAppointment from '../entities/IAppointment';
 
 interface IServiceRequest {
   consumerId: string;
-  providerId: string;
+  supplierId: string;
   startDate: Date;
   endDate: Date;
 }
@@ -20,23 +20,23 @@ class CreateAppointmentService {
 
   public async execute({
     consumerId,
-    providerId,
+    supplierId,
     startDate,
     endDate,
   }: IServiceRequest): Promise<IAppointment> {
-    const findClash = await this.appointmentsRepository.findClash({
-      providerId,
+    const findClash = await this.appointmentsRepository.findBySupplierId({
+      supplierId,
       startDate,
       endDate,
     });
 
-    if (findClash) {
+    if (findClash.length) {
       throw new AppError('There is a conflict with another appointment.', 400);
     }
 
     const appointment = await this.appointmentsRepository.create({
       consumerId,
-      providerId,
+      supplierId,
       startDate,
       endDate,
     });

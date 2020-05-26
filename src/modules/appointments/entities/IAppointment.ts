@@ -1,7 +1,7 @@
 export default interface IAppointment {
   id: string;
   consumerId: string;
-  providerId: string;
+  supplierId: string;
   startDate: Date;
   endDate: Date;
   createdAt: Date;

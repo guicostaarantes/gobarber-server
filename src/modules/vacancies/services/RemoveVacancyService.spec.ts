@@ -1,10 +1,12 @@
 import { uuid } from 'uuidv4';
+import FakeAppointmentsRepository from '../../appointments/repositories/FakeAppointmentsRepository';
 import FakeSuppliersRepository from '../../suppliers/repositories/FakeSuppliersRepository';
 import FakeVacanciesRepository from '../repositories/FakeVacanciesRepository';
 import RemoveVacancyService from './RemoveVacancyService';
 import AppError from '../../../shared/errors/AppError';
 
 describe('Remove Vacancy Service', () => {
+  let appointmentsRepository: FakeAppointmentsRepository;
   let suppliersRepository: FakeSuppliersRepository;
   let vacanciesRepository: FakeVacanciesRepository;
   let service: RemoveVacancyService;
@@ -23,9 +25,11 @@ describe('Remove Vacancy Service', () => {
   );
 
   beforeAll(() => {
+    appointmentsRepository = new FakeAppointmentsRepository();
     suppliersRepository = new FakeSuppliersRepository();
     vacanciesRepository = new FakeVacanciesRepository();
     service = new RemoveVacancyService(
+      appointmentsRepository,
       suppliersRepository,
       vacanciesRepository,
     );
@@ -107,6 +111,36 @@ describe('Remove Vacancy Service', () => {
         supplierId: id,
         startDate: date3,
         endDate: date4,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should not remove vacancy if there is an appointment in the period', async () => {
+    const date3 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 2,
+      30,
+    );
+    const date4 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 3,
+      30,
+    );
+    await appointmentsRepository.create({
+      supplierId: id,
+      consumerId: uuid(),
+      startDate: date3,
+      endDate: date4,
+    });
+    await expect(
+      service.execute({
+        supplierId: id,
+        startDate: date1,
+        endDate: date2,
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

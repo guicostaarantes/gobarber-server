@@ -28,7 +28,7 @@ describe('Create Appointment Service', () => {
   it('Should create new appointment', async () => {
     const appointment = await service.execute({
       consumerId: uuid(),
-      providerId: uuid(),
+      supplierId: uuid(),
       startDate: new Date(),
       endDate: new Date(),
     });
@@ -42,7 +42,7 @@ describe('Create Appointment Service', () => {
 
   it('Should not create new appointment if clashes with another appointment of same provider', async () => {
     // Create provider id to share in all requests
-    const providerId = uuid();
+    const supplierId = uuid();
 
     // Create first appointment
     const startDate1 = tomorrowAt(10);
@@ -50,7 +50,7 @@ describe('Create Appointment Service', () => {
 
     await service.execute({
       consumerId: uuid(),
-      providerId,
+      supplierId,
       startDate: startDate1,
       endDate: endDate1,
     });
@@ -62,7 +62,7 @@ describe('Create Appointment Service', () => {
     await expect(
       service.execute({
         consumerId: uuid(),
-        providerId,
+        supplierId,
         startDate: startDate2,
         endDate: endDate2,
       }),
@@ -76,7 +76,7 @@ describe('Create Appointment Service', () => {
     await expect(
       service.execute({
         consumerId: uuid(),
-        providerId,
+        supplierId,
         startDate: startDate2,
         endDate: endDate2,
       }),
@@ -90,7 +90,7 @@ describe('Create Appointment Service', () => {
     await expect(
       service.execute({
         consumerId: uuid(),
-        providerId,
+        supplierId,
         startDate: startDate2,
         endDate: endDate2,
       }),
@@ -104,7 +104,7 @@ describe('Create Appointment Service', () => {
     await expect(
       service.execute({
         consumerId: uuid(),
-        providerId,
+        supplierId,
         startDate: startDate2,
         endDate: endDate2,
       }),

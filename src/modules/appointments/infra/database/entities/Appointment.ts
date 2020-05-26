@@ -17,8 +17,8 @@ class Appointment implements IAppointment {
   @Column({ name: 'consumer_id' })
   consumerId: string;
 
-  @Column({ name: 'provider_id' })
-  providerId: string;
+  @Column({ name: 'supplier_id' })
+  supplierId: string;
 
   @Column({ name: 'start_date' })
   startDate: Date;

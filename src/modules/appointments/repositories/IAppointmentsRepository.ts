@@ -2,13 +2,13 @@ import IAppointment from '../entities/IAppointment';
 
 export interface ICreateAppointmentDTO {
   consumerId: string;
-  providerId: string;
+  supplierId: string;
   startDate: Date;
   endDate: Date;
 }
 
-export interface IFindAppointmentClashDTO {
-  providerId: string;
+export interface IFindAppointmentDTO {
+  supplierId: string;
   startDate: Date;
   endDate: Date;
 }
@@ -16,5 +16,5 @@ export interface IFindAppointmentClashDTO {
 export interface IAppointmentsRepository {
   create(dto: ICreateAppointmentDTO): Promise<IAppointment>;
   findByConsumerId(consumerId: string): Promise<IAppointment[]>;
-  findClash(dto: IFindAppointmentClashDTO): Promise<IAppointment>;
+  findBySupplierId(dto: IFindAppointmentDTO): Promise<IAppointment[]>;
 }
