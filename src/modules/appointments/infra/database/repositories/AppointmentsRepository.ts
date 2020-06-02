@@ -15,14 +15,18 @@ class AppointmentsRepository implements IAppointmentsRepository {
   }
 
   public async create({
-    consumerId,
+    customerId,
     supplierId,
+    procedureId,
+    price,
     startDate,
     endDate,
   }: ICreateAppointmentDTO): Promise<Appointment> {
     const newAppointment = this.baseRepository.create({
-      consumerId,
+      customerId,
       supplierId,
+      procedureId,
+      price,
       startDate,
       endDate,
     });
@@ -32,8 +36,8 @@ class AppointmentsRepository implements IAppointmentsRepository {
     return appointment;
   }
 
-  public async findByConsumerId(consumerId: string): Promise<Appointment[]> {
-    const appointments = await this.baseRepository.find({ where: consumerId });
+  public async findByCustomerId(customerId: string): Promise<Appointment[]> {
+    const appointments = await this.baseRepository.find({ where: customerId });
     return appointments;
   }
 

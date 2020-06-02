@@ -14,11 +14,17 @@ class Appointment implements IAppointment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'consumer_id' })
-  consumerId: string;
+  @Column({ name: 'customer_id' })
+  customerId: string;
 
   @Column({ name: 'supplier_id' })
   supplierId: string;
+
+  @Column({ name: 'procedure_id' })
+  procedureId: string;
+
+  @Column()
+  price: number;
 
   @Column({ name: 'start_date' })
   startDate: Date;

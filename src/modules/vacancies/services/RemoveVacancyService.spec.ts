@@ -131,8 +131,10 @@ describe('Remove Vacancy Service', () => {
       30,
     );
     await appointmentsRepository.create({
+      customerId: uuid(),
       supplierId: id,
-      consumerId: uuid(),
+      procedureId: uuid(),
+      price: 30,
       startDate: date3,
       endDate: date4,
     });

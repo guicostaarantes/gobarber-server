@@ -2,16 +2,16 @@ import {
   MigrationInterface,
   QueryRunner,
   Table,
-  TableColumn,
   TableForeignKey,
+  TableColumn,
 } from 'typeorm';
 
-export default class CreateSuppliers1589553795613
+export default class CreateProcedures1590504038998
   implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'suppliers',
+        name: 'procedures',
         columns: [
           {
             name: 'id',
@@ -21,15 +21,19 @@ export default class CreateSuppliers1589553795613
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'user_id',
+            name: 'supplier_id',
             type: 'uuid',
           },
           {
-            name: 'latitude',
-            type: 'real',
+            name: 'name',
+            type: 'varchar',
           },
           {
-            name: 'longitude',
+            name: 'duration',
+            type: 'integer',
+          },
+          {
+            name: 'price',
             type: 'real',
           },
           {
@@ -54,25 +58,32 @@ export default class CreateSuppliers1589553795613
     await queryRunner.addColumn(
       'appointments',
       new TableColumn({
-        name: 'supplier_id',
+        name: 'procedure_id',
         type: 'uuid',
       }),
     );
+    await queryRunner.addColumn(
+      'appointments',
+      new TableColumn({
+        name: 'price',
+        type: 'real',
+      }),
+    );
     await queryRunner.createForeignKey(
-      'suppliers',
+      'procedures',
       new TableForeignKey({
-        name: 'user_has_supplier',
-        referencedTableName: 'users',
-        columnNames: ['user_id'],
+        name: 'supplier_has_procedures',
+        referencedTableName: 'suppliers',
+        columnNames: ['supplier_id'],
         referencedColumnNames: ['id'],
       }),
     );
     await queryRunner.createForeignKey(
       'appointments',
       new TableForeignKey({
-        name: 'supplier_has_appointments',
-        referencedTableName: 'suppliers',
-        columnNames: ['supplier_id'],
+        name: 'procedure_has_appointments',
+        referencedTableName: 'procedures',
+        columnNames: ['procedure_id'],
         referencedColumnNames: ['id'],
       }),
     );
@@ -81,10 +92,11 @@ export default class CreateSuppliers1589553795613
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropForeignKey(
       'appointments',
-      'supplier_has_appointments',
+      'procedure_has_appointments',
     );
-    await queryRunner.dropForeignKey('suppliers', 'user_has_supplier');
-    await queryRunner.dropColumn('appointments', 'supplier_id');
-    await queryRunner.dropTable('suppliers');
+    await queryRunner.dropForeignKey('procedures', 'supplier_has_procedures');
+    await queryRunner.dropColumn('appointments', 'price');
+    await queryRunner.dropColumn('appointments', 'procedure_id');
+    await queryRunner.dropTable('procedures');
   }
 }

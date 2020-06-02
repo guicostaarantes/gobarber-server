@@ -1,14 +1,16 @@
 import 'reflect-metadata';
 import { inject, injectable } from 'tsyringe';
+import { add } from 'date-fns';
 import AppError from '../../../shared/errors/AppError';
 import { IAppointmentsRepository } from '../repositories/IAppointmentsRepository';
+import { IProceduresRepository } from '../../procedures/repositories/IProceduresRepository';
+import { IVacanciesRepository } from '../../vacancies/repositories/IVacanciesRepository';
 import IAppointment from '../entities/IAppointment';
 
 interface IServiceRequest {
-  consumerId: string;
-  supplierId: string;
+  customerId: string;
+  procedureId: string;
   startDate: Date;
-  endDate: Date;
 }
 
 @injectable()
@@ -16,14 +18,41 @@ class CreateAppointmentService {
   constructor(
     @inject('AppointmentsRepository')
     private appointmentsRepository: IAppointmentsRepository,
+    @inject('ProceduresRepository')
+    private proceduresRepository: IProceduresRepository,
+    @inject('VacanciesRepository')
+    private vacanciesRepository: IVacanciesRepository,
   ) {}
 
   public async execute({
-    consumerId,
-    supplierId,
+    customerId,
+    procedureId,
     startDate,
-    endDate,
   }: IServiceRequest): Promise<IAppointment> {
+    const procedure = await this.proceduresRepository.findById(procedureId);
+
+    if (!procedure) {
+      throw new AppError('Procedure not found.', 404);
+    }
+
+    const { supplierId, price } = procedure;
+
+    const endDate = add(startDate, { minutes: procedure.duration });
+
+    const findVacancy = await this.vacanciesRepository.findBySupplierId({
+      supplierId,
+      startDate,
+      endDate,
+    });
+
+    if (
+      findVacancy.length !== 1 ||
+      findVacancy[0].startDate > startDate ||
+      findVacancy[0].endDate < endDate
+    ) {
+      throw new AppError('There is no vacancy for this appointment.', 400);
+    }
+
     const findClash = await this.appointmentsRepository.findBySupplierId({
       supplierId,
       startDate,
@@ -35,8 +64,10 @@ class CreateAppointmentService {
     }
 
     const appointment = await this.appointmentsRepository.create({
-      consumerId,
+      customerId,
       supplierId,
+      procedureId,
+      price,
       startDate,
       endDate,
     });

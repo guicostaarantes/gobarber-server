@@ -1,8 +1,10 @@
 import IAppointment from '../entities/IAppointment';
 
 export interface ICreateAppointmentDTO {
-  consumerId: string;
+  customerId: string;
   supplierId: string;
+  procedureId: string;
+  price: number;
   startDate: Date;
   endDate: Date;
 }
@@ -15,6 +17,6 @@ export interface IFindAppointmentDTO {
 
 export interface IAppointmentsRepository {
   create(dto: ICreateAppointmentDTO): Promise<IAppointment>;
-  findByConsumerId(consumerId: string): Promise<IAppointment[]>;
+  findByCustomerId(customerId: string): Promise<IAppointment[]>;
   findBySupplierId(dto: IFindAppointmentDTO): Promise<IAppointment[]>;
 }

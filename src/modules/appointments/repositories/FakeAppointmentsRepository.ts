@@ -15,32 +15,36 @@ export default class FakeAppointmentsRepository
   }
 
   public async create({
-    consumerId,
+    customerId,
     supplierId,
+    procedureId,
+    price,
     startDate,
     endDate,
   }: ICreateAppointmentDTO): Promise<FakeAppointment> {
     const appointment = new FakeAppointment();
 
     appointment.id = uuid();
-    appointment.consumerId = consumerId;
+    appointment.customerId = customerId;
     appointment.supplierId = supplierId;
+    appointment.procedureId = procedureId;
+    appointment.price = price;
     appointment.startDate = startDate;
     appointment.endDate = endDate;
     appointment.createdAt = new Date();
     appointment.updatedAt = new Date();
-    appointment.createdAt = null;
+    appointment.deletedAt = null;
 
     this.table.push(appointment);
 
     return appointment;
   }
 
-  public async findByConsumerId(
-    consumerId: string,
+  public async findByCustomerId(
+    customerId: string,
   ): Promise<FakeAppointment[]> {
     return this.table.filter(
-      appointment => appointment.consumerId === consumerId,
+      appointment => appointment.customerId === customerId,
     );
   }
 

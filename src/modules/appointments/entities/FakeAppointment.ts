@@ -1,9 +1,13 @@
 export default class FakeAppointment {
   id: string;
 
-  consumerId: string;
+  customerId: string;
 
   supplierId: string;
+
+  procedureId: string;
+
+  price: number;
 
   startDate: Date;
 

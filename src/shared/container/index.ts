@@ -4,6 +4,7 @@ import AppointmentsRepository from '../../modules/appointments/infra/database/re
 import UsersRepository from '../../modules/users/infra/database/repositories/UsersRepository';
 import SuppliersRepository from '../../modules/suppliers/infra/database/repositories/SuppliersRepository';
 import VacanciesRepository from '../../modules/vacancies/infra/database/repositories/VacanciesRepository';
+import ProceduresRepository from '../../modules/procedures/infra/database/repositories/ProceduresRepository';
 
 import BCryptHashProvider from '../providers/HashProvider/implementations/BCryptHashProvider';
 import DiskStorageProvider from '../providers/StorageProvider/implementations/DiskStorageProvider';
@@ -15,6 +16,7 @@ import { IAppointmentsRepository } from '../../modules/appointments/repositories
 import { IUsersRepository } from '../../modules/users/repositories/IUsersRepository';
 import { ISuppliersRepository } from '../../modules/suppliers/repositories/ISuppliersRepository';
 import { IVacanciesRepository } from '../../modules/vacancies/repositories/IVacanciesRepository';
+import { IProceduresRepository } from '../../modules/procedures/repositories/IProceduresRepository';
 
 import { IHashProvider } from '../providers/HashProvider/IHashProvider';
 import { IStorageProvider } from '../providers/StorageProvider/IStorageProvider';
@@ -39,6 +41,10 @@ container.registerSingleton<ISuppliersRepository>(
 container.registerSingleton<IVacanciesRepository>(
   'VacanciesRepository',
   VacanciesRepository,
+);
+container.registerSingleton<IProceduresRepository>(
+  'ProceduresRepository',
+  ProceduresRepository,
 );
 
 // Providers

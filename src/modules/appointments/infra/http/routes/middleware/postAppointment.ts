@@ -5,19 +5,17 @@ import { container } from 'tsyringe';
 import CreateAppointmentService from '../../../../services/CreateAppointmentService';
 
 export default async (req: Request, res: Response): Promise<void> => {
-  const consumerId = req.tokenUserId;
-  const { providerId } = req.body;
-  let { startDate, endDate } = req.body;
+  const customerId = req.tokenUserId;
+  const { procedureId } = req.body;
+  let { startDate } = req.body;
   startDate = parseISO(startDate);
-  endDate = parseISO(endDate);
 
   const service = container.resolve(CreateAppointmentService);
 
   const appointment = await service.execute({
-    consumerId,
-    providerId,
+    customerId,
+    procedureId,
     startDate,
-    endDate,
   });
 
   res.status(200).send(appointment);

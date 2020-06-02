@@ -1,4 +1,9 @@
-import { MigrationInterface, QueryRunner, Table } from 'typeorm';
+import {
+  MigrationInterface,
+  QueryRunner,
+  Table,
+  TableForeignKey,
+} from 'typeorm';
 
 export default class CreateVacancies1589796173414
   implements MigrationInterface {
@@ -29,9 +34,19 @@ export default class CreateVacancies1589796173414
         ],
       }),
     );
+    await queryRunner.createForeignKey(
+      'vacancies',
+      new TableForeignKey({
+        name: 'supplier_has_vacancies',
+        referencedTableName: 'suppliers',
+        columnNames: ['supplier_id'],
+        referencedColumnNames: ['id'],
+      }),
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.dropForeignKey('vacancies', 'supplier_has_vacancies');
     await queryRunner.dropTable('vacancies');
   }
 }
