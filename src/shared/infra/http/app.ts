@@ -6,6 +6,8 @@ import path from 'path';
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 
+import { errors as celebrateErrors } from 'celebrate';
+
 import { JsonWebTokenError } from 'jsonwebtoken';
 
 import '../../container';
@@ -30,6 +32,8 @@ app.use(
   express.static(path.join(__dirname, '..', process.env.STATIC_DIR)),
 );
 app.use(routes);
+
+app.use(celebrateErrors());
 
 app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   if (err instanceof AppError) {
