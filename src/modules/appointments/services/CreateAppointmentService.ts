@@ -35,6 +35,10 @@ class CreateAppointmentService {
       throw new AppError('Procedure not found.', 404);
     }
 
+    if (startDate < new Date()) {
+      throw new AppError('Cannot create appointments in the past.', 400);
+    }
+
     const { supplierId, price } = procedure;
 
     const endDate = add(startDate, { minutes: procedure.duration });

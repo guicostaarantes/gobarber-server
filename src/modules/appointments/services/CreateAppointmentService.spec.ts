@@ -5,6 +5,15 @@ import FakeVacanciesRepository from '../../vacancies/repositories/FakeVacanciesR
 import CreateAppointmentService from './CreateAppointmentService';
 import AppError from '../../../shared/errors/AppError';
 
+const yesterdayAt = (hour: number): Date => {
+  return new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate() - 1,
+    hour,
+  );
+};
+
 const tomorrowAt = (hour: number): Date => {
   return new Date(
     new Date().getFullYear(),
@@ -51,6 +60,12 @@ describe('Create Appointment Service', () => {
       {
         id: uuid(),
         supplierId,
+        startDate: yesterdayAt(8),
+        endDate: yesterdayAt(18),
+      },
+      {
+        id: uuid(),
+        supplierId,
         startDate: tomorrowAt(8),
         endDate: tomorrowAt(18),
       },
@@ -67,8 +82,14 @@ describe('Create Appointment Service', () => {
     expect(appointmentsRepository.table).toHaveLength(1);
   });
 
-  it('should not create new appointment if date is in the past', async () => {
-    // TODO
+  it('Should not create new appointment if date is in the past', async () => {
+    await expect(
+      service.execute({
+        customerId: uuid(),
+        procedureId,
+        startDate: yesterdayAt(10),
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('Should not create new appointment if clashes with another appointment of same provider', async () => {
