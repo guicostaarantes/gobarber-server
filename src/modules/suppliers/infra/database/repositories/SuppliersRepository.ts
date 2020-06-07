@@ -21,11 +21,13 @@ class SuppliersRepository implements ISuppliersRepository {
 
   public async create({
     userId,
+    name,
     latitude,
     longitude,
   }: ICreateSupplierDTO): Promise<Supplier> {
     const newSupplier = this.baseRepository.create({
       userId,
+      name,
       latitude,
       longitude,
     });

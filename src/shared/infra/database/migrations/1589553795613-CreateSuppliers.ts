@@ -25,6 +25,10 @@ export default class CreateSuppliers1589553795613
             type: 'uuid',
           },
           {
+            name: 'name',
+            type: 'varchar',
+          },
+          {
             name: 'latitude',
             type: 'real',
           },

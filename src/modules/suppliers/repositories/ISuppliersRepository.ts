@@ -2,6 +2,7 @@ import ISupplier from '../entities/ISupplier';
 
 export interface ICreateSupplierDTO {
   userId: string;
+  name: string;
   latitude: number;
   longitude: number;
 }

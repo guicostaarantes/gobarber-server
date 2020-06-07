@@ -8,6 +8,7 @@ import AppError from '../../../shared/errors/AppError';
 
 interface IServiceRequest {
   userId: string;
+  name: string;
   latitude: number;
   longitude: number;
 }
@@ -23,6 +24,7 @@ class CreateSupplierService {
 
   public async execute({
     userId,
+    name,
     latitude,
     longitude,
   }: IServiceRequest): Promise<ISupplier> {
@@ -43,6 +45,7 @@ class CreateSupplierService {
 
     const supplier = await this.suppliersRepository.create({
       userId,
+      name,
       latitude,
       longitude,
     });
