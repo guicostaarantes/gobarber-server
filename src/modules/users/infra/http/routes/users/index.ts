@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '../../../../../../shared/infra/http/middleware/ensureAuthenticated';
 import getUser from './middleware/getUser';
@@ -14,11 +15,43 @@ const usersRouter = Router();
 
 usersRouter.get('/', ensureAuthenticated, getUsers);
 
-usersRouter.get('/:id', ensureAuthenticated, getUser);
+usersRouter.get(
+  '/:id',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid(),
+    },
+  }),
+  getUser,
+);
 
-usersRouter.post('/', postUser);
+usersRouter.post(
+  '/',
+  celebrate({
+    [Segments.BODY]: {
+      fullName: Joi.string().required(),
+      email: Joi.string().email().required(),
+      password: Joi.string()
+        .pattern(
+          /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+-=|]).{8,}$/,
+        )
+        .required(),
+    },
+  }),
+  postUser,
+);
 
-usersRouter.patch('/', ensureAuthenticated, patchUser);
+usersRouter.patch(
+  '/',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      fullName: Joi.string(),
+    },
+  }),
+  patchUser,
+);
 
 usersRouter.patch(
   '/avatar',
@@ -27,9 +60,30 @@ usersRouter.patch(
   patchAvatar,
 );
 
-usersRouter.post('/forgot-password', postForgotPassword);
+usersRouter.post(
+  '/forgot-password',
+  celebrate({
+    [Segments.BODY]: {
+      email: Joi.string().email().required(),
+    },
+  }),
+  postForgotPassword,
+);
 
-usersRouter.patch('/forgot-password', patchForgotPassword);
+usersRouter.patch(
+  '/forgot-password',
+  celebrate({
+    [Segments.BODY]: {
+      token: Joi.string().required(),
+      newPassword: Joi.string()
+        .pattern(
+          /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+-=|]).{8,}$/,
+        )
+        .required(),
+    },
+  }),
+  patchForgotPassword,
+);
 
 // usersRouter.delete('/:id', async (req, res) => {});
 
