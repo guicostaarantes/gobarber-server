@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '../../../../../shared/infra/http/middleware/ensureAuthenticated';
 import getAppointments from './middleware/getAppointments';
@@ -8,7 +9,17 @@ const appointmentsRouter = Router();
 
 appointmentsRouter.get('/', ensureAuthenticated, getAppointments);
 
-appointmentsRouter.post('/', ensureAuthenticated, postAppointment);
+appointmentsRouter.post(
+  '/',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.BODY]: {
+      procedureId: Joi.string().uuid().required(),
+      startDate: Joi.date().required(),
+    },
+  }),
+  postAppointment,
+);
 
 // appointmentsRouter.patch('/:id', async (req, res) => {});
 
