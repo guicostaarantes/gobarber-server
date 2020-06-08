@@ -1,15 +1,15 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2020-06-02T10:13:11.747Z",
-  "__export_source": "insomnia.desktop.app:v7.1.1",
+  "__export_date": "2020-06-08T22:31:47.745Z",
+  "__export_source": "insomnia.desktop.app:v2020.2.1",
   "resources": [
     {
       "_id": "req_6ee39c42590a42208f8a7046cd1c78d8",
       "authentication": {},
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"fullName\": \"Fulano da Silva\",\n\t\"email\": \"fulano@teste.com.br\",\n\t\"password\": \"Ful4nO*2020\"\n}"
+        "text": "{\n\t\"fullName\": \"Fulano da Silva\",\n\t\"email\": \"fulano3@teste.com.br\",\n\t\"password\": \"Ful4nO*2020\"\n}"
       },
       "created": 1587630111151,
       "description": "",
@@ -23,7 +23,7 @@
       "isPrivate": false,
       "metaSortKey": -1587636380444,
       "method": "POST",
-      "modified": 1590577101606,
+      "modified": 1591526796141,
       "name": "/",
       "parameters": [],
       "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
@@ -55,6 +55,7 @@
       "modified": 1587603737959,
       "name": "GoBarber",
       "parentId": null,
+      "scope": null,
       "_type": "workspace"
     },
     {
@@ -103,7 +104,7 @@
       "isPrivate": false,
       "metaSortKey": -1587636380428.375,
       "method": "GET",
-      "modified": 1589580370133,
+      "modified": 1591527005540,
       "name": "/",
       "parameters": [],
       "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
@@ -154,7 +155,7 @@
         "params": [
           {
             "description": "",
-            "fileName": "",
+            "fileName": "C:\\Users\\guilherme\\OneDrive\\Documentos pessoais\\foto linkedin.xcf",
             "id": "pair_32525c6bb1b94392939859407f09ee9a",
             "name": "avatar",
             "type": "file",
@@ -174,7 +175,7 @@
       "isPrivate": false,
       "metaSortKey": -1587636380394,
       "method": "PATCH",
-      "modified": 1589322784492,
+      "modified": 1591528022507,
       "name": "/avatar",
       "parameters": [],
       "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
@@ -256,7 +257,7 @@
       "authentication": {},
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"email\": \"fulano@teste.com.br\",\n\t\"password\": \"Ful4nO*2020\"\n}"
+        "text": "{\n\t\"email\": \"ciclano@teste.com.br\",\n\t\"password\": \"Cicl4nO*2020\"\n}"
       },
       "created": 1587631823457,
       "description": "",
@@ -270,7 +271,7 @@
       "isPrivate": false,
       "metaSortKey": -1587631823457,
       "method": "POST",
-      "modified": 1590577814743,
+      "modified": 1591520769142,
       "name": "/",
       "parameters": [],
       "parentId": "fld_b16ebe1dadb2486b9bb0716fb5208894",
@@ -300,7 +301,7 @@
       "authentication": { "token": "{{ token  }}", "type": "bearer" },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"procedureId\": \"d391546f-f4c3-4708-94f1-8ef7679f622a\",\n\t\"startDate\": \"2020-06-25 17:21:00\"\n}"
+        "text": "{\n\t\"procedureId\": \"c6dde283-6cd9-4157-8f69-a82b4062150b\",\n\t\"startDate\": \"2020-06-25 17:00:00\"\n}"
       },
       "created": 1587603790249,
       "description": "",
@@ -314,7 +315,7 @@
       "isPrivate": false,
       "metaSortKey": -1587630072951,
       "method": "POST",
-      "modified": 1590577895415,
+      "modified": 1591520711681,
       "name": "/",
       "parameters": [],
       "parentId": "fld_b3e7b1b4a8994955a5587ddfae25402b",
@@ -420,9 +421,22 @@
       "isPrivate": false,
       "metaSortKey": -1587636380390.875,
       "method": "GET",
-      "modified": 1589638420354,
+      "modified": 1591655472111,
       "name": "/",
-      "parameters": [],
+      "parameters": [
+        {
+          "description": "",
+          "id": "pair_271449d041fa4dc3a4508254c7b4e344",
+          "name": "position",
+          "value": "-19.928084,-43.961166"
+        },
+        {
+          "description": "",
+          "id": "pair_3035bc09373646dc94afdc6f83c2f6ce",
+          "name": "tolerance",
+          "value": "0.02"
+        }
+      ],
       "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
       "settingDisableRenderRequestBody": false,
       "settingEncodeUrl": true,
@@ -430,7 +444,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{ base_url  }}/suppliers?position=-19.928084,-43.961166&tolerance=0.02",
+      "url": "{{ base_url  }}/suppliers",
       "_type": "request"
     },
     {
@@ -461,6 +475,79 @@
       "settingSendCookies": true,
       "settingStoreCookies": true,
       "url": "{{ base_url  }}/suppliers/me",
+      "_type": "request"
+    },
+    {
+      "_id": "req_1e72f54961414347b2b46e5fbac6bb8f",
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "body": {},
+      "created": 1591518937700,
+      "description": "",
+      "headers": [
+        {
+          "description": "",
+          "id": "pair_06822fcce2374c0aa52d55dac66abae4",
+          "name": "",
+          "value": ""
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1587636380315.875,
+      "method": "GET",
+      "modified": 1591518993343,
+      "name": "/:supplierId",
+      "parameters": [],
+      "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/suppliers/6dc799a6-dc19-4d56-b830-e23708865793",
+      "_type": "request"
+    },
+    {
+      "_id": "req_1d35aa56024a4b37893899461f695176",
+      "authentication": { "token": "{{ token  }}", "type": "bearer" },
+      "body": {},
+      "created": 1591519002084,
+      "description": "",
+      "headers": [
+        {
+          "description": "",
+          "id": "pair_06822fcce2374c0aa52d55dac66abae4",
+          "name": "",
+          "value": ""
+        }
+      ],
+      "isPrivate": false,
+      "metaSortKey": -1587636380303.375,
+      "method": "GET",
+      "modified": 1591655410849,
+      "name": "/:supplierId/appointments",
+      "parameters": [
+        {
+          "description": "",
+          "id": "pair_35aa8c32b6e7494fa1d16525682d8e23",
+          "name": "start_date",
+          "value": "2020-06-25"
+        },
+        {
+          "description": "",
+          "id": "pair_23146cfbfc4540519bd3133b8651098f",
+          "name": "end_date",
+          "value": "2020-06-26"
+        }
+      ],
+      "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/suppliers/6dc799a6-dc19-4d56-b830-e23708865793/appointments",
       "_type": "request"
     },
     {
@@ -504,7 +591,7 @@
       "authentication": { "token": "{{ token  }}", "type": "bearer" },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"name\": \"Corte e barba masculino\",\n\t\"duration\": 30,\n\t\"price\": 50\n}"
+        "text": "{\n\t\"name\": \"Corte e barba masculino\",\n\t\"duration\": 45,\n\t\"price\": 70\n}"
       },
       "created": 1590514304687,
       "description": "",
@@ -518,7 +605,7 @@
       "isPrivate": false,
       "metaSortKey": -1590514304687,
       "method": "POST",
-      "modified": 1590577045330,
+      "modified": 1591467851983,
       "name": "/",
       "parameters": [],
       "parentId": "fld_1637269eff43481aa2e41b008419067a",
@@ -559,7 +646,7 @@
       "isPrivate": false,
       "metaSortKey": -1590484942956.5,
       "method": "GET",
-      "modified": 1590577070830,
+      "modified": 1591467904374,
       "name": "/:supplierId",
       "parameters": [],
       "parentId": "fld_1637269eff43481aa2e41b008419067a",
@@ -569,7 +656,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{ base_url  }}/procedures/543e2f1e-0264-4dc4-8291-5ddb2c7e2e50",
+      "url": "{{ base_url  }}/procedures/6dc799a6-dc19-4d56-b830-e23708865793",
       "_type": "request"
     },
     {
@@ -577,7 +664,7 @@
       "authentication": { "token": "{{ token  }}", "type": "bearer" },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"name\": \"Corte feminino\"\n}"
+        "text": "{\n\t\"price\": 80\n}"
       },
       "created": 1590518362348,
       "description": "",
@@ -591,7 +678,7 @@
       "isPrivate": false,
       "metaSortKey": -1590484942906.5,
       "method": "PATCH",
-      "modified": 1590518994580,
+      "modified": 1591467934201,
       "name": "/:procedureId",
       "parameters": [],
       "parentId": "fld_1637269eff43481aa2e41b008419067a",
@@ -601,7 +688,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{ base_url  }}/procedures/e9bd149d-8004-4005-b22f-9bdd067c2553",
+      "url": "{{ base_url  }}/procedures/c6dde283-6cd9-4157-8f69-a82b4062150b",
       "_type": "request"
     },
     {
@@ -632,7 +719,7 @@
       "authentication": { "token": "{{ token  }}", "type": "bearer" },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"startDate\": \"2020-06-25 00:00:00\",\n\t\"endDate\": \"2020-06-25 23:00:00\"\n}"
+        "text": "{\n\t\"startDate\": \"2020-06-25 00:00:00\",\n\t\"endDate\": \"2020-06-26 00:00:00\"\n}"
       },
       "created": 1590455581226,
       "description": "",
@@ -646,7 +733,7 @@
       "isPrivate": false,
       "metaSortKey": -1590455581226,
       "method": "GET",
-      "modified": 1590577833381,
+      "modified": 1591467626959,
       "name": "/:supplierId",
       "parameters": [],
       "parentId": "fld_c2e6a0cb5bf6492ca5cae818397a5b99",
@@ -656,7 +743,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{ base_url  }}/vacancies/543e2f1e-0264-4dc4-8291-5ddb2c7e2e50",
+      "url": "{{ base_url  }}/vacancies/6dc799a6-dc19-4d56-b830-e23708865793",
       "_type": "request"
     },
     {
@@ -708,7 +795,7 @@
       "authentication": { "token": "{{ token  }}", "type": "bearer" },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"startDate\": \"2020-06-25 17:41:00\",\n\t\"endDate\": \"2020-06-25 18:00:00\"\n}"
+        "text": "{\n\t\"startDate\": \"2020-06-25 17:00:00\",\n\t\"endDate\": \"2020-06-25 18:00:00\"\n}"
       },
       "created": 1589929302047,
       "description": "",
@@ -722,7 +809,7 @@
       "isPrivate": false,
       "metaSortKey": -1588762904754.5,
       "method": "DELETE",
-      "modified": 1590578171045,
+      "modified": 1591468005926,
       "name": "/",
       "parameters": [],
       "parentId": "fld_c2e6a0cb5bf6492ca5cae818397a5b99",
@@ -758,17 +845,27 @@
       "_type": "cookie_jar"
     },
     {
+      "_id": "spc_f766addb845548cdbeec223d24ee2e34",
+      "contentType": "yaml",
+      "contents": "",
+      "created": 1591518846974,
+      "fileName": "GoBarber",
+      "modified": 1591518846974,
+      "parentId": "wrk_90182e5308354c0eb1e826bd53c2b59a",
+      "_type": "api_spec"
+    },
+    {
       "_id": "env_f83c40eca0904ca09f02d493dc82a2b3",
       "color": null,
       "created": 1587603750432,
       "data": {
-        "base_url": "http://localhost:3333",
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0YmJlYjY0Yi02YTViLTRjYzQtODdhYi0zMTM5MzZmNjc1MDMiLCJ0eXAiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE1OTA1Nzc5MTEsImV4cCI6MTU5MDYwNjcxMX0.Z_0G63dN_hep-N8E0jVc_U-Sb-cyqJaUbukY1bG9l5k"
+        "base_url": "",
+        "token": ""
       },
       "dataPropertyOrder": { "&": ["base_url", "token"] },
       "isPrivate": false,
       "metaSortKey": 1587603750432,
-      "modified": 1590577923717,
+      "modified": 1591520784712,
       "name": "Development",
       "parentId": "env_121790294f49b663e4e920655c9e070ac2b54333",
       "_type": "environment"
