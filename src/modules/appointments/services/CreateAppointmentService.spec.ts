@@ -82,6 +82,40 @@ describe('Create Appointment Service', () => {
     expect(appointmentsRepository.table).toHaveLength(1);
   });
 
+  it('Should not create new appointment if procedure is not found', async () => {
+    await expect(
+      service.execute({
+        customerId: uuid(),
+        procedureId: uuid(),
+        startDate: tomorrowAt(10),
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should not create new appointment if there is no vacancy for the whole duration of the procedure', async () => {
+    await expect(
+      service.execute({
+        customerId: uuid(),
+        procedureId,
+        startDate: tomorrowAt(17),
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+    await expect(
+      service.execute({
+        customerId: uuid(),
+        procedureId,
+        startDate: tomorrowAt(7),
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+    await expect(
+      service.execute({
+        customerId: uuid(),
+        procedureId,
+        startDate: tomorrowAt(20),
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
   it('Should not create new appointment if date is in the past', async () => {
     await expect(
       service.execute({
