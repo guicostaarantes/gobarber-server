@@ -1,15 +1,15 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2020-06-08T22:31:47.745Z",
-  "__export_source": "insomnia.desktop.app:v2020.2.1",
+  "__export_date": "2020-06-11T20:21:29.004Z",
+  "__export_source": "insomnia.desktop.app:v7.1.1",
   "resources": [
     {
       "_id": "req_6ee39c42590a42208f8a7046cd1c78d8",
       "authentication": {},
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"fullName\": \"Fulano da Silva\",\n\t\"email\": \"fulano3@teste.com.br\",\n\t\"password\": \"Ful4nO*2020\"\n}"
+        "text": "{\n\t\"fullName\": \"Fulano da Silva\",\n\t\"email\": \"fulano@teste.com.br\",\n\t\"password\": \"Ful4nO*2020\"\n}"
       },
       "created": 1587630111151,
       "description": "",
@@ -23,7 +23,7 @@
       "isPrivate": false,
       "metaSortKey": -1587636380444,
       "method": "POST",
-      "modified": 1591526796141,
+      "modified": 1591878991095,
       "name": "/",
       "parameters": [],
       "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
@@ -55,7 +55,6 @@
       "modified": 1587603737959,
       "name": "GoBarber",
       "parentId": null,
-      "scope": null,
       "_type": "workspace"
     },
     {
@@ -257,7 +256,7 @@
       "authentication": {},
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"email\": \"ciclano@teste.com.br\",\n\t\"password\": \"Cicl4nO*2020\"\n}"
+        "text": "{\n\t\"email\": \"fulano@teste.com.br\",\n\t\"password\": \"Ful4nO*2020\"\n}"
       },
       "created": 1587631823457,
       "description": "",
@@ -271,7 +270,7 @@
       "isPrivate": false,
       "metaSortKey": -1587631823457,
       "method": "POST",
-      "modified": 1591520769142,
+      "modified": 1591878963566,
       "name": "/",
       "parameters": [],
       "parentId": "fld_b16ebe1dadb2486b9bb0716fb5208894",
@@ -301,7 +300,7 @@
       "authentication": { "token": "{{ token  }}", "type": "bearer" },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"procedureId\": \"c6dde283-6cd9-4157-8f69-a82b4062150b\",\n\t\"startDate\": \"2020-06-25 17:00:00\"\n}"
+        "text": "{\n\t\"procedureId\": \"677ed2ec-e032-4c87-b909-373f460175d2\",\n\t\"startDate\": \"2020-06-25 17:00:00\"\n}"
       },
       "created": 1587603790249,
       "description": "",
@@ -315,7 +314,7 @@
       "isPrivate": false,
       "metaSortKey": -1587630072951,
       "method": "POST",
-      "modified": 1591520711681,
+      "modified": 1591881648853,
       "name": "/",
       "parameters": [],
       "parentId": "fld_b3e7b1b4a8994955a5587ddfae25402b",
@@ -368,7 +367,7 @@
       "authentication": { "token": "{{token}}", "type": "bearer" },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"latitude\": -19.9224033,\t\n\t\"longitude\": -43.9644464\n}"
+        "text": "{\n\t\"latitude\": -19.9224033,\t\n\t\"longitude\": -43.9644464,\n\t\"name\": \"Fulanos barber shop\"\n}"
       },
       "created": 1589578715392,
       "description": "",
@@ -382,7 +381,7 @@
       "isPrivate": false,
       "metaSortKey": -1587636380440.875,
       "method": "POST",
-      "modified": 1589744337929,
+      "modified": 1591879517452,
       "name": "/",
       "parameters": [],
       "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
@@ -494,7 +493,7 @@
       "isPrivate": false,
       "metaSortKey": -1587636380315.875,
       "method": "GET",
-      "modified": 1591518993343,
+      "modified": 1591881876980,
       "name": "/:supplierId",
       "parameters": [],
       "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
@@ -504,7 +503,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{ base_url  }}/suppliers/6dc799a6-dc19-4d56-b830-e23708865793",
+      "url": "{{ base_url  }}/suppliers/29b0b7cf-af43-4f93-9c10-25bb227e4713",
       "_type": "request"
     },
     {
@@ -524,19 +523,19 @@
       "isPrivate": false,
       "metaSortKey": -1587636380303.375,
       "method": "GET",
-      "modified": 1591655410849,
+      "modified": 1591882101720,
       "name": "/:supplierId/appointments",
       "parameters": [
         {
           "description": "",
           "id": "pair_35aa8c32b6e7494fa1d16525682d8e23",
-          "name": "start_date",
+          "name": "startDate",
           "value": "2020-06-25"
         },
         {
           "description": "",
           "id": "pair_23146cfbfc4540519bd3133b8651098f",
-          "name": "end_date",
+          "name": "endDate",
           "value": "2020-06-26"
         }
       ],
@@ -547,7 +546,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{ base_url  }}/suppliers/6dc799a6-dc19-4d56-b830-e23708865793/appointments",
+      "url": "{{ base_url  }}/suppliers/29b0b7cf-af43-4f93-9c10-25bb227e4713/appointments",
       "_type": "request"
     },
     {
@@ -559,7 +558,7 @@
       },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"latitude\": 51.500246,\n\t\"longitude\": -0.1306106\n}"
+        "text": "{\n\t\"name\": \"Fulano's Barber Shop\"\n}"
       },
       "created": 1589745406065,
       "description": "",
@@ -573,7 +572,7 @@
       "isPrivate": false,
       "metaSortKey": -1587636380290.875,
       "method": "PATCH",
-      "modified": 1590576617556,
+      "modified": 1591879572669,
       "name": "/",
       "parameters": [],
       "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
@@ -633,20 +632,14 @@
     {
       "_id": "req_f53fd365c58b4114a19ba86c2107ce7a",
       "authentication": { "token": "{{ token  }}", "type": "bearer" },
-      "body": { "mimeType": "application/json", "text": "" },
+      "body": {},
       "created": 1590518278713,
       "description": "",
-      "headers": [
-        {
-          "id": "pair_ef1b0ae6dbee4464bba77088ecffea08",
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
+      "headers": [],
       "isPrivate": false,
       "metaSortKey": -1590484942956.5,
       "method": "GET",
-      "modified": 1591467904374,
+      "modified": 1591878546843,
       "name": "/:supplierId",
       "parameters": [],
       "parentId": "fld_1637269eff43481aa2e41b008419067a",
@@ -717,25 +710,29 @@
     {
       "_id": "req_bca0e6ce710f4e5888994dd953590adc",
       "authentication": { "token": "{{ token  }}", "type": "bearer" },
-      "body": {
-        "mimeType": "application/json",
-        "text": "{\n\t\"startDate\": \"2020-06-25 00:00:00\",\n\t\"endDate\": \"2020-06-26 00:00:00\"\n}"
-      },
+      "body": {},
       "created": 1590455581226,
       "description": "",
-      "headers": [
-        {
-          "id": "pair_064af53a7605491dadc9faa4b0edad0a",
-          "name": "Content-Type",
-          "value": "application/json"
-        }
-      ],
+      "headers": [],
       "isPrivate": false,
       "metaSortKey": -1590455581226,
       "method": "GET",
-      "modified": 1591467626959,
+      "modified": 1591881040977,
       "name": "/:supplierId",
-      "parameters": [],
+      "parameters": [
+        {
+          "description": "",
+          "id": "pair_14b1296a011f4708934b6f12b12ec60e",
+          "name": "start_date",
+          "value": "2020-06-25 00:00:00"
+        },
+        {
+          "description": "",
+          "id": "pair_6742e4f04ae743e4a37750c593554b00",
+          "name": "end_date",
+          "value": "2020-06-26 00:00:00"
+        }
+      ],
       "parentId": "fld_c2e6a0cb5bf6492ca5cae818397a5b99",
       "settingDisableRenderRequestBody": false,
       "settingEncodeUrl": true,
@@ -743,7 +740,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": true,
       "settingStoreCookies": true,
-      "url": "{{ base_url  }}/vacancies/6dc799a6-dc19-4d56-b830-e23708865793",
+      "url": "{{ base_url  }}/vacancies/29b0b7cf-af43-4f93-9c10-25bb227e4713",
       "_type": "request"
     },
     {
@@ -777,7 +774,7 @@
       "isPrivate": false,
       "metaSortKey": -1589889429065,
       "method": "POST",
-      "modified": 1590493756838,
+      "modified": 1591881486437,
       "name": "/",
       "parameters": [],
       "parentId": "fld_c2e6a0cb5bf6492ca5cae818397a5b99",
@@ -845,27 +842,17 @@
       "_type": "cookie_jar"
     },
     {
-      "_id": "spc_f766addb845548cdbeec223d24ee2e34",
-      "contentType": "yaml",
-      "contents": "",
-      "created": 1591518846974,
-      "fileName": "GoBarber",
-      "modified": 1591518846974,
-      "parentId": "wrk_90182e5308354c0eb1e826bd53c2b59a",
-      "_type": "api_spec"
-    },
-    {
       "_id": "env_f83c40eca0904ca09f02d493dc82a2b3",
       "color": null,
       "created": 1587603750432,
       "data": {
-        "base_url": "",
+        "base_url": "http://localhost:3333",
         "token": ""
       },
       "dataPropertyOrder": { "&": ["base_url", "token"] },
       "isPrivate": false,
       "metaSortKey": 1587603750432,
-      "modified": 1591520784712,
+      "modified": 1591879510095,
       "name": "Development",
       "parentId": "env_121790294f49b663e4e920655c9e070ac2b54333",
       "_type": "environment"
