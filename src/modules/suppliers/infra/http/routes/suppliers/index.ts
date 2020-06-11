@@ -40,10 +40,10 @@ suppliersRouter.get(
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
-      [Segments.QUERY]: {
-        start_date: Joi.date().required(),
-        end_date: Joi.date().required(),
-      },
+    },
+    [Segments.QUERY]: {
+      startDate: Joi.date().required(),
+      endDate: Joi.date().required(),
     },
   }),
   getSupplierAppointments,
