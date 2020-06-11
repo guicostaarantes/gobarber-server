@@ -6,10 +6,13 @@ import ListVacanciesOfSupplierService from '../../../../../services/ListVacancie
 
 export default async (req: Request, res: Response): Promise<void> => {
   const { supplierId } = req.params;
-  let { startDate, endDate } = req.body;
+  const { start_date, end_date } = req.query as {
+    start_date: string;
+    end_date: string;
+  };
 
-  startDate = parseISO(startDate);
-  endDate = parseISO(endDate);
+  const startDate = parseISO(start_date);
+  const endDate = parseISO(end_date);
 
   const service = container.resolve(ListVacanciesOfSupplierService);
 
