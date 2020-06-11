@@ -74,6 +74,79 @@ describe('Remove Vacancy Service', () => {
     expect(vacanciesRepository.table.length).toEqual(2);
   });
 
+  it('Should remove vacancy case 1', async () => {
+    const date3 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 1,
+      30,
+    );
+    const date4 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 2,
+      30,
+    );
+    await expect(
+      service.execute({ supplierId: id, startDate: date3, endDate: date4 }),
+    ).resolves.toBeTruthy();
+    expect(vacanciesRepository.table.length).toEqual(1);
+  });
+
+  it('Should remove vacancy case 2', async () => {
+    const date3 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 3,
+      30,
+    );
+    const date4 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 4,
+      30,
+    );
+    await expect(
+      service.execute({ supplierId: id, startDate: date3, endDate: date4 }),
+    ).resolves.toBeTruthy();
+    expect(vacanciesRepository.table.length).toEqual(1);
+  });
+
+  it('Should remove no vacancies if no vacancies are found in the interval', async () => {
+    const date3 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 6,
+      30,
+    );
+    const date4 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 7,
+      30,
+    );
+    await expect(
+      service.execute({ supplierId: id, startDate: date3, endDate: date4 }),
+    ).resolves.toHaveLength(0);
+    expect(vacanciesRepository.table.length).toEqual(1);
+  });
+
+  it('Should not remove vacancy if no supplier is found', async () => {
+    await expect(
+      service.execute({
+        supplierId: uuid(),
+        startDate: date1,
+        endDate: date2,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
   it('Should not remove vacancy if startDate is later than endDate', async () => {
     await expect(
       service.execute({

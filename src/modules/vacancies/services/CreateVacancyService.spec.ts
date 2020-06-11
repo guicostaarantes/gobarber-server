@@ -53,6 +53,41 @@ describe('Create Vacancy Service', () => {
     ).resolves.toBeTruthy();
   });
 
+  it('Should create vacancies in an optimized, non-overlapping way', async () => {
+    const date3 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 1,
+    );
+    const date4 = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate(),
+      new Date().getHours() + 7,
+    );
+    vacanciesRepository.table = [
+      { id: uuid(), supplierId: id, startDate: date3, endDate: date1 },
+      { id: uuid(), supplierId: id, startDate: date2, endDate: date4 },
+    ];
+    await expect(
+      service.execute({ supplierId: id, startDate: date1, endDate: date2 }),
+    ).resolves.toBeTruthy();
+    expect(vacanciesRepository.table).toHaveLength(1);
+    expect(vacanciesRepository.table[0]).toHaveProperty('startDate', date3);
+    expect(vacanciesRepository.table[0]).toHaveProperty('endDate', date4);
+  });
+
+  it('Should not create vacancy if no supplier is found', async () => {
+    await expect(
+      service.execute({
+        supplierId: uuid(),
+        startDate: date1,
+        endDate: date2,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
   it('Should not create vacancy if startDate is later than endDate', async () => {
     await expect(
       service.execute({

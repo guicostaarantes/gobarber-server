@@ -99,6 +99,12 @@ describe('List Vacancies Of Supplier Service', () => {
     ).resolves.toHaveLength(2);
   });
 
+  it('Should list vacancies considering start date as now if no startDate is provided', async () => {
+    await expect(
+      service.execute({ supplierId: id, endDate: date2 }),
+    ).resolves.toHaveLength(2);
+  });
+
   it('Should not list vacancies if startDate is later than endDate', async () => {
     await expect(
       service.execute({
