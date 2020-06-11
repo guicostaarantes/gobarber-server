@@ -36,7 +36,8 @@ class FakeUsersRepository implements IUsersRepository {
     page: number,
     fields: (keyof FakeUser)[],
   ): Promise<FakeUser[]> {
-    const users = this.table.slice(10 * (page - 1), 10).map(user => {
+    const users = this.table.slice(10 * (page - 1), 10);
+    const response = { ...users }.map(user => {
       if (fields.length) {
         Object.keys(user)
           .filter(key => !fields.includes(key as keyof FakeUser))
@@ -45,7 +46,7 @@ class FakeUsersRepository implements IUsersRepository {
       }
       return user;
     });
-    return users;
+    return response;
   }
 
   public async findById(
@@ -56,13 +57,14 @@ class FakeUsersRepository implements IUsersRepository {
     if (!user) {
       return undefined;
     }
+    const response = { ...user };
     if (fields.length) {
-      Object.keys(user)
+      Object.keys(response)
         .filter(key => !fields.includes(key as keyof FakeUser))
         // eslint-disable-next-line no-param-reassign
-        .forEach(key => delete user[key as keyof FakeUser]);
+        .forEach(key => delete response[key as keyof FakeUser]);
     }
-    return user;
+    return response;
   }
 
   public async findByEmail(
@@ -73,13 +75,14 @@ class FakeUsersRepository implements IUsersRepository {
     if (!user) {
       return undefined;
     }
+    const response = { ...user };
     if (fields.length) {
-      Object.keys(user)
+      Object.keys(response)
         .filter(key => !fields.includes(key as keyof FakeUser))
         // eslint-disable-next-line no-param-reassign
-        .forEach(key => delete user[key as keyof FakeUser]);
+        .forEach(key => delete response[key as keyof FakeUser]);
     }
-    return user;
+    return response;
   }
 }
 export default FakeUsersRepository;
