@@ -3,6 +3,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '../../../../../../shared/infra/http/middleware/ensureAuthenticated';
 import getSupplier from './middleware/getSupplier';
+import getMeSupplier from './middleware/getMeSupplier';
 import getSuppliers from './middleware/getSuppliers';
 import postSupplier from './middleware/postSupplier';
 import patchSupplier from './middleware/patchSupplier';
@@ -23,6 +24,8 @@ suppliersRouter.get(
   }),
   getSuppliers,
 );
+
+suppliersRouter.get('/me', ensureAuthenticated, getMeSupplier);
 
 suppliersRouter.get(
   '/:id',
