@@ -59,6 +59,25 @@ describe('Create Procedure Service', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
+  it('Should not create procedure if user already has a procedure with same name', async () => {
+    await expect(
+      service.execute({
+        userId: fakeUserId,
+        name: 'Name of procedure',
+        duration: 15,
+        price: 30,
+      }),
+    ).resolves.toBeTruthy();
+    await expect(
+      service.execute({
+        userId: fakeUserId,
+        name: 'Name of procedure',
+        duration: 15,
+        price: 30,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
   it('Should not create procedure if there is another procedure with same name and same supplier', async () => {
     await expect(
       service.execute({

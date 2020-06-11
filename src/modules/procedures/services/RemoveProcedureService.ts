@@ -33,6 +33,10 @@ class RemoveProcedureService {
       throw new AppError('Procedure not found.', 404);
     }
 
+    if (procedureToDelete.supplierId !== supplier.id) {
+      throw new AppError('Cannot remove procedure of other supplier.', 401);
+    }
+
     await this.proceduresRepository.delete(id);
   }
 }
