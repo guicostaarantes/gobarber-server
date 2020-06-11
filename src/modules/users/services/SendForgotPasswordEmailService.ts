@@ -25,6 +25,9 @@ class SendForgotPasswordEmailService {
     const user = await this.usersRepository.findByEmail(email, ['id']);
 
     if (!user) {
+      await new Promise(resolve =>
+        setTimeout(resolve, 2000 * (1 + Math.random())),
+      );
       return;
     }
 
