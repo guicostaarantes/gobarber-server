@@ -37,7 +37,12 @@ describe('Create Supplier Service', () => {
 
   it('Should create supplier', async () => {
     await expect(
-      service.execute({ userId: id, latitude: 51.5074, longitude: -0.1278 }),
+      service.execute({
+        userId: id,
+        name: 'Example Barber Shop',
+        latitude: 51.5074,
+        longitude: -0.1278,
+      }),
     ).resolves.toBeTruthy();
   });
 
@@ -45,6 +50,7 @@ describe('Create Supplier Service', () => {
     await expect(
       service.execute({
         userId: uuid(),
+        name: 'Example Barber Shop',
         latitude: 51.5074,
         longitude: -0.1278,
       }),

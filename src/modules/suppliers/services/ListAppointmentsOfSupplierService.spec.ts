@@ -59,6 +59,7 @@ describe('List Appointment Service', () => {
       {
         id: supplierId,
         userId,
+        name: 'Example Barber Shop',
         latitude: 0,
         longitude: 0,
         createdAt: new Date(),
