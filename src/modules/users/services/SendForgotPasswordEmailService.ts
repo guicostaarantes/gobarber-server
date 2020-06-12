@@ -42,7 +42,7 @@ class SendForgotPasswordEmailService {
           { encoding: 'utf-8' },
         ),
         values: {
-          link: `${process.env.CLIENT_BASE_URL}/resetPassword?token=${token}`,
+          link: `${process.env.CLIENT_BASE_URL}/reset-password?token=${token}`,
         },
       },
     });
