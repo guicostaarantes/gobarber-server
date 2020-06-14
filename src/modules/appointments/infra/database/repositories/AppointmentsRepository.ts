@@ -37,7 +37,9 @@ class AppointmentsRepository implements IAppointmentsRepository {
   }
 
   public async findByCustomerId(customerId: string): Promise<Appointment[]> {
-    const appointments = await this.baseRepository.find({ where: customerId });
+    const appointments = await this.baseRepository.find({
+      where: { customerId },
+    });
     return appointments;
   }
 
