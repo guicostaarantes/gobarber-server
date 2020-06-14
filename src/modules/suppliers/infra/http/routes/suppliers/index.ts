@@ -8,6 +8,7 @@ import getSuppliers from './middleware/getSuppliers';
 import postSupplier from './middleware/postSupplier';
 import patchSupplier from './middleware/patchSupplier';
 import getSupplierAppointments from './middleware/getSupplierAppointments';
+import getMeSupplierAppointments from './middleware/getMeSupplierAppointments';
 import getSupplierProcedures from './middleware/getSupplierProcedures';
 
 const suppliersRouter = Router();
@@ -33,6 +34,18 @@ suppliersRouter.get(
   ensureAuthenticated,
   celebrate({ [Segments.PARAMS]: { id: Joi.string().uuid().required() } }),
   getSupplier,
+);
+
+suppliersRouter.get(
+  '/me/appointments',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.QUERY]: {
+      startDate: Joi.date().required(),
+      endDate: Joi.date().required(),
+    },
+  }),
+  getMeSupplierAppointments,
 );
 
 suppliersRouter.get(
