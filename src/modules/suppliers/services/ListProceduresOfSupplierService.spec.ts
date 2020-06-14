@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { uuid } from 'uuidv4';
-import FakeSuppliersRepository from '../../suppliers/repositories/FakeSuppliersRepository';
-import FakeProceduresRepository from '../repositories/FakeProceduresRepository';
+import FakeSuppliersRepository from '../repositories/FakeSuppliersRepository';
+import FakeProceduresRepository from '../../procedures/repositories/FakeProceduresRepository';
 import ListProceduresOfSupplierService from './ListProceduresOfSupplierService';
 import AppError from '../../../shared/errors/AppError';
 

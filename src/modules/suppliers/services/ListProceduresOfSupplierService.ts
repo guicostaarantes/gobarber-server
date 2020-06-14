@@ -1,8 +1,8 @@
 import { injectable, inject } from 'tsyringe';
 
-import { ISuppliersRepository } from '../../suppliers/repositories/ISuppliersRepository';
-import { IProceduresRepository } from '../repositories/IProceduresRepository';
-import IProcedure from '../entities/IProcedure';
+import { ISuppliersRepository } from '../repositories/ISuppliersRepository';
+import { IProceduresRepository } from '../../procedures/repositories/IProceduresRepository';
+import IProcedure from '../../procedures/entities/IProcedure';
 import AppError from '../../../shared/errors/AppError';
 
 @injectable()

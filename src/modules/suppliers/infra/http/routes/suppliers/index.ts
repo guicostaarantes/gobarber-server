@@ -8,6 +8,7 @@ import getSuppliers from './middleware/getSuppliers';
 import postSupplier from './middleware/postSupplier';
 import patchSupplier from './middleware/patchSupplier';
 import getSupplierAppointments from './middleware/getSupplierAppointments';
+import getSupplierProcedures from './middleware/getSupplierProcedures';
 
 const suppliersRouter = Router();
 
@@ -47,6 +48,17 @@ suppliersRouter.get(
     },
   }),
   getSupplierAppointments,
+);
+
+suppliersRouter.get(
+  '/:id/procedures',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  getSupplierProcedures,
 );
 
 suppliersRouter.post(
