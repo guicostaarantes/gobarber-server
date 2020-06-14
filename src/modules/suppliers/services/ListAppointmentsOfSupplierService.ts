@@ -41,6 +41,7 @@ class ListAppointmentOfSupplierService {
         const newAppointment = { ...appointment };
         delete newAppointment.id;
         delete newAppointment.customerId;
+        delete newAppointment.customer;
         delete newAppointment.procedureId;
         delete newAppointment.price;
         delete newAppointment.createdAt;
