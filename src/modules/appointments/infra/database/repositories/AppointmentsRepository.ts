@@ -50,11 +50,6 @@ class AppointmentsRepository implements IAppointmentsRepository {
   }: IFindAppointmentDTO): Promise<Appointment[]> {
     const appointments = await this.baseRepository
       .createQueryBuilder()
-      .leftJoinAndSelect(
-        'users',
-        'Appointment_customer',
-        '"Appointment_customer"."id"="Appointment"."customer_id"',
-      )
       .where('supplier_id = :supplierId', { supplierId })
       .andWhere('NOT (end_date <= :startDate OR :endDate <= start_date)', {
         startDate,
@@ -62,6 +57,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
       })
       .getMany();
     await Promise.all(appointments.map(appointment => appointment.customer));
+    await Promise.all(appointments.map(appointment => appointment.procedure));
     return appointments;
   }
 }
