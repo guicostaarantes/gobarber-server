@@ -1,8 +1,8 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2020-06-14T16:15:38.609Z",
-  "__export_source": "insomnia.desktop.app:v7.1.1",
+  "__export_date": "2020-06-18T00:24:31.074Z",
+  "__export_source": "insomnia.desktop.app:v2020.2.1",
   "resources": [
     {
       "_id": "req_6ee39c42590a42208f8a7046cd1c78d8",
@@ -55,6 +55,7 @@
       "modified": 1587603737959,
       "name": "GoBarber",
       "parentId": null,
+      "scope": null,
       "_type": "workspace"
     },
     {
@@ -125,18 +126,11 @@
       "body": {},
       "created": 1587647927189,
       "description": "",
-      "headers": [
-        {
-          "description": "",
-          "id": "pair_06822fcce2374c0aa52d55dac66abae4",
-          "name": "",
-          "value": ""
-        }
-      ],
+      "headers": [],
       "isPrivate": false,
       "metaSortKey": -1587636380419,
       "method": "GET",
-      "modified": 1592150053236,
+      "modified": 1592439826199,
       "name": "/me",
       "parameters": [],
       "parentId": "fld_c1c78549f91f4f03b86c5338ef5446c4",
@@ -312,7 +306,7 @@
       },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"procedureId\": \"677ed2ec-e032-4c87-b909-373f460175d2\",\n\t\"startDate\": \"2020-06-25 17:00:00\"\n}"
+        "text": "{\n\t\"procedureId\": \"677ed2ec-e032-4c87-b909-373f460175d2\",\n\t\"startDate\": \"2020-06-25 15:00:00\"\n}"
       },
       "created": 1587603790249,
       "description": "",
@@ -326,7 +320,7 @@
       "isPrivate": false,
       "metaSortKey": -1587630072951,
       "method": "POST",
-      "modified": 1592150042319,
+      "modified": 1592170703687,
       "name": "/",
       "parameters": [],
       "parentId": "fld_b3e7b1b4a8994955a5587ddfae25402b",
@@ -473,18 +467,11 @@
       "body": {},
       "created": 1589580378912,
       "description": "",
-      "headers": [
-        {
-          "description": "",
-          "id": "pair_06822fcce2374c0aa52d55dac66abae4",
-          "name": "",
-          "value": ""
-        }
-      ],
+      "headers": [],
       "isPrivate": false,
       "metaSortKey": -1587636380340.875,
       "method": "GET",
-      "modified": 1592149995031,
+      "modified": 1592439808319,
       "name": "/me",
       "parameters": [],
       "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
@@ -506,18 +493,11 @@
       "body": {},
       "created": 1591518937700,
       "description": "",
-      "headers": [
-        {
-          "description": "",
-          "id": "pair_06822fcce2374c0aa52d55dac66abae4",
-          "name": "",
-          "value": ""
-        }
-      ],
+      "headers": [],
       "isPrivate": false,
       "metaSortKey": -1587636380315.875,
       "method": "GET",
-      "modified": 1592150151948,
+      "modified": 1592439805266,
       "name": "/:supplierId",
       "parameters": [],
       "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
@@ -531,6 +511,45 @@
       "_type": "request"
     },
     {
+      "_id": "req_3485e405792946e689d6a29e272ac882",
+      "authentication": {
+        "token": "{% response 'body', 'req_c0b409de09a24e5293303425c4b9fdcf', 'b64::JC50b2tlbg==::46b', 'never' %}",
+        "type": "bearer"
+      },
+      "body": {},
+      "created": 1592153037191,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1587636380309.625,
+      "method": "GET",
+      "modified": 1592439799945,
+      "name": "/me/appointments",
+      "parameters": [
+        {
+          "description": "",
+          "id": "pair_35aa8c32b6e7494fa1d16525682d8e23",
+          "name": "startDate",
+          "value": "2020-06-25"
+        },
+        {
+          "description": "",
+          "id": "pair_23146cfbfc4540519bd3133b8651098f",
+          "name": "endDate",
+          "value": "2020-06-26"
+        }
+      ],
+      "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/suppliers/me/appointments",
+      "_type": "request"
+    },
+    {
       "_id": "req_1d35aa56024a4b37893899461f695176",
       "authentication": {
         "token": "{% response 'body', 'req_c0b409de09a24e5293303425c4b9fdcf', 'b64::JC50b2tlbg==::46b', 'never' %}",
@@ -539,18 +558,11 @@
       "body": {},
       "created": 1591519002084,
       "description": "",
-      "headers": [
-        {
-          "description": "",
-          "id": "pair_06822fcce2374c0aa52d55dac66abae4",
-          "name": "",
-          "value": ""
-        }
-      ],
+      "headers": [],
       "isPrivate": false,
       "metaSortKey": -1587636380303.375,
       "method": "GET",
-      "modified": 1592150162089,
+      "modified": 1592439795682,
       "name": "/:supplierId/appointments",
       "parameters": [
         {
@@ -577,6 +589,32 @@
       "_type": "request"
     },
     {
+      "_id": "req_7bbdf9836de34f1a893b1e63cf50a491",
+      "authentication": {
+        "token": "{% response 'body', 'req_c0b409de09a24e5293303425c4b9fdcf', 'b64::JC50b2tlbg==::46b', 'never' %}",
+        "type": "bearer"
+      },
+      "body": {},
+      "created": 1592439767677,
+      "description": "",
+      "headers": [],
+      "isPrivate": false,
+      "metaSortKey": -1587636380300.25,
+      "method": "GET",
+      "modified": 1592439791075,
+      "name": "/me/procedures",
+      "parameters": [],
+      "parentId": "fld_1f0f2c3a8f754ac6a39294c8401f9b7e",
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingFollowRedirects": "global",
+      "settingRebuildPath": true,
+      "settingSendCookies": true,
+      "settingStoreCookies": true,
+      "url": "{{ base_url  }}/suppliers/me/procedures",
+      "_type": "request"
+    },
+    {
       "_id": "req_42cad7efc1214264bb18b840ae41a6ab",
       "authentication": {
         "token": "{% response 'body', 'req_c0b409de09a24e5293303425c4b9fdcf', 'b64::JC50b2tlbg==::46b', 'never' %}",
@@ -585,18 +623,11 @@
       "body": {},
       "created": 1592150624814,
       "description": "",
-      "headers": [
-        {
-          "description": "",
-          "id": "pair_06822fcce2374c0aa52d55dac66abae4",
-          "name": "",
-          "value": ""
-        }
-      ],
+      "headers": [],
       "isPrivate": false,
       "metaSortKey": -1587636380297.125,
       "method": "GET",
-      "modified": 1592150630942,
+      "modified": 1592439818438,
       "name": "/:supplierId/procedures",
       "parameters": [
         {
@@ -851,7 +882,7 @@
       },
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"startDate\": \"2020-06-25 17:00:00\",\n\t\"endDate\": \"2020-06-25 18:00:00\"\n}"
+        "text": "{\n\t\"startDate\": \"2020-06-25 14:00:00\",\n\t\"endDate\": \"2020-06-25 17:00:00\"\n}"
       },
       "created": 1589889429064,
       "description": "",
@@ -865,7 +896,7 @@
       "isPrivate": false,
       "metaSortKey": -1589889429065,
       "method": "POST",
-      "modified": 1592150030445,
+      "modified": 1592170676602,
       "name": "/",
       "parameters": [],
       "parentId": "fld_c2e6a0cb5bf6492ca5cae818397a5b99",
@@ -934,6 +965,16 @@
       "name": "Default Jar",
       "parentId": "wrk_90182e5308354c0eb1e826bd53c2b59a",
       "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_18794efc2d55405a9204602b8e2e6150",
+      "contentType": "yaml",
+      "contents": "",
+      "created": 1592437231084,
+      "fileName": "GoBarber",
+      "modified": 1592437231084,
+      "parentId": "wrk_90182e5308354c0eb1e826bd53c2b59a",
+      "_type": "api_spec"
     },
     {
       "_id": "env_f83c40eca0904ca09f02d493dc82a2b3",

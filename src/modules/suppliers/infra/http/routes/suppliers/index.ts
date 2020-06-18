@@ -10,6 +10,7 @@ import patchSupplier from './middleware/patchSupplier';
 import getSupplierAppointments from './middleware/getSupplierAppointments';
 import getMeSupplierAppointments from './middleware/getMeSupplierAppointments';
 import getSupplierProcedures from './middleware/getSupplierProcedures';
+import getMeSupplierProcedures from './middleware/getMeSupplierProcedures';
 
 const suppliersRouter = Router();
 
@@ -61,6 +62,12 @@ suppliersRouter.get(
     },
   }),
   getSupplierAppointments,
+);
+
+suppliersRouter.get(
+  '/me/procedures',
+  ensureAuthenticated,
+  getMeSupplierProcedures,
 );
 
 suppliersRouter.get(
