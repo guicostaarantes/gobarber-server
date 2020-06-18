@@ -55,6 +55,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
         startDate,
         endDate,
       })
+      .orderBy('start_date')
       .getMany();
     await Promise.all(appointments.map(appointment => appointment.customer));
     await Promise.all(appointments.map(appointment => appointment.procedure));
