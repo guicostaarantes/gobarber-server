@@ -4,23 +4,29 @@ import FakeVacanciesRepository from '../repositories/FakeVacanciesRepository';
 import CreateVacancyService from './CreateVacancyService';
 import AppError from '../../../shared/errors/AppError';
 
+const yesterdayAt = (hour: number): Date => {
+  return new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate() - 1,
+    hour,
+  );
+};
+
+const tomorrowAt = (hour: number): Date => {
+  return new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    new Date().getDate() + 1,
+    hour,
+  );
+};
+
 describe('Create Vacancy Service', () => {
   let suppliersRepository: FakeSuppliersRepository;
   let vacanciesRepository: FakeVacanciesRepository;
   let service: CreateVacancyService;
   const id = uuid();
-  const date1 = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    new Date().getDate(),
-    new Date().getHours() + 2,
-  );
-  const date2 = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    new Date().getDate(),
-    new Date().getHours() + 4,
-  );
 
   beforeAll(() => {
     suppliersRepository = new FakeSuppliersRepository();
@@ -48,16 +54,65 @@ describe('Create Vacancy Service', () => {
 
   it('Should create vacancy', async () => {
     await expect(
-      service.execute({ supplierId: id, startDate: date1, endDate: date2 }),
+      service.execute({
+        supplierId: id,
+        startDate: tomorrowAt(8),
+        endDate: tomorrowAt(10),
+      }),
     ).resolves.toBeTruthy();
+  });
+
+  it('Should join vacancies if they overlap', async () => {
+    await expect(
+      service.execute({
+        supplierId: id,
+        startDate: tomorrowAt(8),
+        endDate: tomorrowAt(9),
+      }),
+    ).resolves.toBeTruthy();
+    expect(vacanciesRepository.table.length).toEqual(1);
+    await expect(
+      service.execute({
+        supplierId: id,
+        startDate: tomorrowAt(10),
+        endDate: tomorrowAt(11),
+      }),
+    ).resolves.toBeTruthy();
+    expect(vacanciesRepository.table.length).toEqual(2);
+    await expect(
+      service.execute({
+        supplierId: id,
+        startDate: tomorrowAt(12),
+        endDate: tomorrowAt(13),
+      }),
+    ).resolves.toBeTruthy();
+    expect(vacanciesRepository.table.length).toEqual(3);
+    await expect(
+      service.execute({
+        supplierId: id,
+        startDate: tomorrowAt(9),
+        endDate: tomorrowAt(12),
+      }),
+    ).resolves.toBeTruthy();
+    expect(vacanciesRepository.table.length).toEqual(1);
+  });
+
+  it('Should not create vacancy if no supplier is found', async () => {
+    await expect(
+      service.execute({
+        supplierId: uuid(),
+        startDate: tomorrowAt(8),
+        endDate: tomorrowAt(10),
+      }),
+    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('Should not create vacancy if startDate is later than endDate', async () => {
     await expect(
       service.execute({
         supplierId: id,
-        startDate: date2,
-        endDate: date1,
+        startDate: tomorrowAt(10),
+        endDate: tomorrowAt(8),
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
@@ -66,30 +121,18 @@ describe('Create Vacancy Service', () => {
     await expect(
       service.execute({
         supplierId: id,
-        startDate: date1,
-        endDate: date1,
+        startDate: tomorrowAt(8),
+        endDate: tomorrowAt(8),
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
 
   it('Should not create vacancy if endDate is in the past', async () => {
-    const date3 = new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      new Date().getDate(),
-      new Date().getHours() - 4,
-    );
-    const date4 = new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      new Date().getDate(),
-      new Date().getHours() - 2,
-    );
     await expect(
       service.execute({
         supplierId: id,
-        startDate: date3,
-        endDate: date4,
+        startDate: yesterdayAt(8),
+        endDate: yesterdayAt(10),
       }),
     ).rejects.toBeInstanceOf(AppError);
   });
