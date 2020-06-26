@@ -61,13 +61,14 @@ class FakeSuppliersRepository implements ISuppliersRepository {
     if (!supplier) {
       return undefined;
     }
+    const response = { ...supplier };
     if (fields.length) {
-      Object.keys(supplier)
+      Object.keys(response)
         .filter(key => !fields.includes(key as keyof FakeSupplier))
         // eslint-disable-next-line no-param-reassign
-        .forEach(key => delete supplier[key as keyof FakeSupplier]);
+        .forEach(key => delete response[key as keyof FakeSupplier]);
     }
-    return supplier;
+    return response;
   }
 
   public async findByUserId(
@@ -80,13 +81,14 @@ class FakeSuppliersRepository implements ISuppliersRepository {
     if (!supplier) {
       return undefined;
     }
+    const response = { ...supplier };
     if (fields.length) {
-      Object.keys(supplier)
+      Object.keys(response)
         .filter(key => !fields.includes(key as keyof FakeSupplier))
         // eslint-disable-next-line no-param-reassign
-        .forEach(key => delete supplier[key as keyof FakeSupplier]);
+        .forEach(key => delete response[key as keyof FakeSupplier]);
     }
-    return supplier;
+    return response;
   }
 
   public async findByNearestLocation(

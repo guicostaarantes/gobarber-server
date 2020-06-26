@@ -97,7 +97,7 @@ class RemoveVacancyService {
                 endDate: clash.endDate,
               }),
             ];
-          case 3:
+          default:
             return [
               this.vacanciesRepository.create({
                 supplierId,
@@ -110,8 +110,6 @@ class RemoveVacancyService {
                 endDate: clash.endDate,
               }),
             ];
-          default:
-            return [];
         }
       })
       .reduce((acc, val) => [...acc, ...val], []);

@@ -18,6 +18,9 @@ class Supplier implements ISupplier {
   userId: string;
 
   @Column()
+  name: string;
+
+  @Column()
   latitude: number;
 
   @Column()

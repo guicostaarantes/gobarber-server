@@ -37,7 +37,9 @@ class AppointmentsRepository implements IAppointmentsRepository {
   }
 
   public async findByCustomerId(customerId: string): Promise<Appointment[]> {
-    const appointments = await this.baseRepository.find({ where: customerId });
+    const appointments = await this.baseRepository.find({
+      where: { customerId },
+    });
     return appointments;
   }
 
@@ -53,8 +55,10 @@ class AppointmentsRepository implements IAppointmentsRepository {
         startDate,
         endDate,
       })
+      .orderBy('start_date')
       .getMany();
-
+    await Promise.all(appointments.map(appointment => appointment.customer));
+    await Promise.all(appointments.map(appointment => appointment.procedure));
     return appointments;
   }
 }

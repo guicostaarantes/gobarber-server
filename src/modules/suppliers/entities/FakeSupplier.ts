@@ -5,6 +5,8 @@ class FakeSupplier implements ISupplier {
 
   userId: string;
 
+  name: string;
+
   latitude: number;
 
   longitude: number;

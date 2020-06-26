@@ -33,6 +33,7 @@ describe('List Vacancies Of Supplier Service', () => {
       {
         id,
         userId: uuid(),
+        name: 'Example Barber Shop',
         latitude: 51.5074,
         longitude: -0.1278,
         createdAt: new Date(),
@@ -95,6 +96,12 @@ describe('List Vacancies Of Supplier Service', () => {
   it('Should list vacancies', async () => {
     await expect(
       service.execute({ supplierId: id, startDate: date1, endDate: date2 }),
+    ).resolves.toHaveLength(2);
+  });
+
+  it('Should list vacancies considering start date as now if no startDate is provided', async () => {
+    await expect(
+      service.execute({ supplierId: id, endDate: date2 }),
     ).resolves.toHaveLength(2);
   });
 

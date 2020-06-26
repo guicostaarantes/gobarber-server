@@ -3,6 +3,7 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '../../../../../../shared/infra/http/middleware/ensureAuthenticated';
 import getUser from './middleware/getUser';
+import getMeUser from './middleware/getMeUser';
 import getUsers from './middleware/getUsers';
 import postUser from './middleware/postUser';
 import patchUser from './middleware/patchUser';
@@ -15,12 +16,14 @@ const usersRouter = Router();
 
 usersRouter.get('/', ensureAuthenticated, getUsers);
 
+usersRouter.get('/me', ensureAuthenticated, getMeUser);
+
 usersRouter.get(
   '/:id',
   ensureAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
-      id: Joi.string().uuid(),
+      id: Joi.string().uuid().required(),
     },
   }),
   getUser,

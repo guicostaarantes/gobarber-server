@@ -36,6 +36,7 @@ describe('Update Supplier Service', () => {
       {
         id: uuid(),
         userId: id,
+        name: 'Example Barber Shop',
         latitude: 51.5074,
         longitude: -0.1278,
         createdAt: new Date(),

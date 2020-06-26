@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '../../../../../../shared/infra/http/middleware/ensureAuthenticated';
-import getProcedures from './middleware/getProcedures';
+import getProcedure from './middleware/getProcedure';
 import postProcedure from './middleware/postProcedure';
 import patchProcedure from './middleware/patchProcedure';
 import delProcedure from './middleware/delProcedure';
@@ -10,12 +10,12 @@ import delProcedure from './middleware/delProcedure';
 const proceduresRouter = Router();
 
 proceduresRouter.get(
-  '/:supplierId',
+  '/:procedureId',
   ensureAuthenticated,
   celebrate({
-    [Segments.PARAMS]: { supplierId: Joi.string().uuid().required() },
+    [Segments.PARAMS]: { procedureId: Joi.string().uuid().required() },
   }),
-  getProcedures,
+  getProcedure,
 );
 
 proceduresRouter.post(

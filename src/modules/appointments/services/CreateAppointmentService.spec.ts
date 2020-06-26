@@ -92,12 +92,26 @@ describe('Create Appointment Service', () => {
     ).rejects.toBeInstanceOf(AppError);
   });
 
-  it('Should not create new appointment if there is no vacancy.', async () => {
+  it('Should not create new appointment if there is no vacancy for the whole duration of the procedure', async () => {
+    await expect(
+      service.execute({
+        customerId: uuid(),
+        procedureId,
+        startDate: tomorrowAt(17),
+      }),
+    ).rejects.toBeInstanceOf(AppError);
     await expect(
       service.execute({
         customerId: uuid(),
         procedureId,
         startDate: tomorrowAt(7),
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+    await expect(
+      service.execute({
+        customerId: uuid(),
+        procedureId,
+        startDate: tomorrowAt(20),
       }),
     ).rejects.toBeInstanceOf(AppError);
   });

@@ -25,6 +25,9 @@ class SendForgotPasswordEmailService {
     const user = await this.usersRepository.findByEmail(email, ['id']);
 
     if (!user) {
+      await new Promise(resolve =>
+        setTimeout(resolve, 2000 * (1 + Math.random())),
+      );
       return;
     }
 
@@ -39,7 +42,7 @@ class SendForgotPasswordEmailService {
           { encoding: 'utf-8' },
         ),
         values: {
-          link: `${process.env.CLIENT_BASE_URL}/resetPassword?token=${token}`,
+          link: `${process.env.CLIENT_BASE_URL}/reset-password?token=${token}`,
         },
       },
     });

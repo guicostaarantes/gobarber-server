@@ -8,7 +8,7 @@ import AppError from '../../../shared/errors/AppError';
 
 interface IServiceRequest {
   supplierId: string;
-  startDate: Date;
+  startDate?: Date;
   endDate: Date;
 }
 

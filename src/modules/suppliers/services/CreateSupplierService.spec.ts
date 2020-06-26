@@ -50,7 +50,26 @@ describe('Create Supplier Service', () => {
     await expect(
       service.execute({
         userId: uuid(),
-        name: 'Barber shop',
+        name: 'Example Barber Shop',
+        latitude: 51.5074,
+        longitude: -0.1278,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should not create supplier if logged user is already a supplier', async () => {
+    await expect(
+      service.execute({
+        userId: id,
+        name: 'Example Barber Shop',
+        latitude: 51.5074,
+        longitude: -0.1278,
+      }),
+    ).resolves.toBeTruthy();
+    await expect(
+      service.execute({
+        userId: id,
+        name: 'Example Barber Shop',
         latitude: 51.5074,
         longitude: -0.1278,
       }),

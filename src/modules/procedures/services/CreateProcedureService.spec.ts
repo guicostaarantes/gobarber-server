@@ -26,6 +26,7 @@ describe('Create Procedure Service', () => {
       {
         id: fakeSupplierId,
         userId: fakeUserId,
+        name: 'Example Barber Shop',
         latitude: 51.5074,
         longitude: -0.1278,
         createdAt: new Date(),
@@ -51,6 +52,25 @@ describe('Create Procedure Service', () => {
     await expect(
       service.execute({
         userId: uuid(),
+        name: 'Name of procedure',
+        duration: 15,
+        price: 30,
+      }),
+    ).rejects.toBeInstanceOf(AppError);
+  });
+
+  it('Should not create procedure if user already has a procedure with same name', async () => {
+    await expect(
+      service.execute({
+        userId: fakeUserId,
+        name: 'Name of procedure',
+        duration: 15,
+        price: 30,
+      }),
+    ).resolves.toBeTruthy();
+    await expect(
+      service.execute({
+        userId: fakeUserId,
         name: 'Name of procedure',
         duration: 15,
         price: 30,

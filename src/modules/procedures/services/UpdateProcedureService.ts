@@ -8,9 +8,9 @@ import AppError from '../../../shared/errors/AppError';
 interface IServiceRequest {
   userId: string;
   id: string;
-  name: string;
-  duration: number;
-  price: number;
+  name?: string;
+  duration?: number;
+  price?: number;
 }
 
 @injectable()
@@ -39,6 +39,10 @@ class UpdateProcedureService {
 
     if (!procedureToUpdate) {
       throw new AppError('Procedure not found.', 404);
+    }
+
+    if (procedureToUpdate.supplierId !== supplier.id) {
+      throw new AppError('Cannot update procedure of other supplier.', 401);
     }
 
     const updatedProcedure = { ...procedureToUpdate, ...changingFields };

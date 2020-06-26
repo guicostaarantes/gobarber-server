@@ -3,10 +3,14 @@ import { celebrate, Segments, Joi } from 'celebrate';
 
 import ensureAuthenticated from '../../../../../../shared/infra/http/middleware/ensureAuthenticated';
 import getSupplier from './middleware/getSupplier';
+import getMeSupplier from './middleware/getMeSupplier';
 import getSuppliers from './middleware/getSuppliers';
 import postSupplier from './middleware/postSupplier';
 import patchSupplier from './middleware/patchSupplier';
 import getSupplierAppointments from './middleware/getSupplierAppointments';
+import getMeSupplierAppointments from './middleware/getMeSupplierAppointments';
+import getSupplierProcedures from './middleware/getSupplierProcedures';
+import getMeSupplierProcedures from './middleware/getMeSupplierProcedures';
 
 const suppliersRouter = Router();
 
@@ -24,6 +28,8 @@ suppliersRouter.get(
   getSuppliers,
 );
 
+suppliersRouter.get('/me', ensureAuthenticated, getMeSupplier);
+
 suppliersRouter.get(
   '/:id',
   ensureAuthenticated,
@@ -32,18 +38,47 @@ suppliersRouter.get(
 );
 
 suppliersRouter.get(
+  '/me/appointments',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.QUERY]: {
+      startDate: Joi.date().required(),
+      endDate: Joi.date().required(),
+    },
+  }),
+  getMeSupplierAppointments,
+);
+
+suppliersRouter.get(
   '/:id/appointments',
   ensureAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
-      [Segments.QUERY]: {
-        start_date: Joi.date().required(),
-        end_date: Joi.date().required(),
-      },
+    },
+    [Segments.QUERY]: {
+      startDate: Joi.date().required(),
+      endDate: Joi.date().required(),
     },
   }),
   getSupplierAppointments,
+);
+
+suppliersRouter.get(
+  '/me/procedures',
+  ensureAuthenticated,
+  getMeSupplierProcedures,
+);
+
+suppliersRouter.get(
+  '/:id/procedures',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  getSupplierProcedures,
 );
 
 suppliersRouter.post(
