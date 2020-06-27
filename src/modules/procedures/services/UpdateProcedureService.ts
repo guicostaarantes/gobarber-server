@@ -41,6 +41,20 @@ class UpdateProcedureService {
       throw new AppError('Procedure not found.', 404);
     }
 
+    if (changingFields.name) {
+      const proceduresOfSupplier = await this.proceduresRepository.findBySupplierId(
+        supplier.id,
+      );
+
+      const nameClash = proceduresOfSupplier.find(
+        proc => proc.name === changingFields.name,
+      );
+
+      if (nameClash) {
+        throw new AppError('Procedure with same name already exists.', 409);
+      }
+    }
+
     if (procedureToUpdate.supplierId !== supplier.id) {
       throw new AppError('Cannot update procedure of other supplier.', 401);
     }
