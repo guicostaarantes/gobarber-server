@@ -39,7 +39,9 @@ usersRouter.post(
         .pattern(
           /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[*.!@$%^&(){}[\]:;<>,.?/~_+-=|]).{8,}$/,
         )
-        .required(),
+        .required()
+        .error(() => new Error('password not strong enough')),
+      confirmPassword: Joi.string(),
     },
   }),
   postUser,
