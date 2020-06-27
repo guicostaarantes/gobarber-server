@@ -47,7 +47,7 @@ class UpdateProcedureService {
       );
 
       const nameClash = proceduresOfSupplier.find(
-        proc => proc.name === changingFields.name,
+        proc => proc.name === changingFields.name && proc.id !== id,
       );
 
       if (nameClash) {
