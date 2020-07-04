@@ -11,6 +11,8 @@ import getSupplierAppointments from './middleware/getSupplierAppointments';
 import getMeSupplierAppointments from './middleware/getMeSupplierAppointments';
 import getSupplierProcedures from './middleware/getSupplierProcedures';
 import getMeSupplierProcedures from './middleware/getMeSupplierProcedures';
+import getSupplierVacancies from './middleware/getSupplierVacancies';
+import getMeSupplierVacancies from './middleware/getMeSupplierVacancies';
 
 const suppliersRouter = Router();
 
@@ -79,6 +81,33 @@ suppliersRouter.get(
     },
   }),
   getSupplierProcedures,
+);
+
+suppliersRouter.get(
+  '/me/vacancies',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.QUERY]: {
+      startDate: Joi.date().required(),
+      endDate: Joi.date().required(),
+    },
+  }),
+  getMeSupplierVacancies,
+);
+
+suppliersRouter.get(
+  '/:id/vacancies',
+  ensureAuthenticated,
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+    [Segments.QUERY]: {
+      startDate: Joi.date().required(),
+      endDate: Joi.date().required(),
+    },
+  }),
+  getSupplierVacancies,
 );
 
 suppliersRouter.post(
