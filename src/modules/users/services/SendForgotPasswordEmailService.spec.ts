@@ -54,7 +54,7 @@ describe('Send Forgot Password Email Service', () => {
     expect(sendMailSpy).toHaveReturned();
     expect(mailProvider.mails[0].to).toEqual(['fulano@teste.com.br']);
     expect(mailProvider.mails[0].body.values.link).toEqual(
-      `${process.env.CLIENT_BASE_URL}/resetPassword?token=mock-generated-token`,
+      `${process.env.CLIENT_BASE_URL}/reset-password?token=mock-generated-token`,
     );
   });
 
