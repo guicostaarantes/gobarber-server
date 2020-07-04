@@ -11,11 +11,11 @@ export default class FakeAppointment {
 
   procedureId: string;
 
-  customer: Promise<FakeUser>;
+  customer?: Promise<FakeUser>;
 
-  supplier: Promise<FakeSupplier>;
+  supplier?: Promise<FakeSupplier>;
 
-  procedure: Promise<FakeProcedure>;
+  procedure?: Promise<FakeProcedure>;
 
   price: number;
 

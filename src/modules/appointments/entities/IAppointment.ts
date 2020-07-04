@@ -7,9 +7,9 @@ export default interface IAppointment {
   customerId: string;
   supplierId: string;
   procedureId: string;
-  customer: Promise<IUser>;
-  supplier: Promise<ISupplier>;
-  procedure: Promise<IProcedure>;
+  customer?: Promise<IUser>;
+  supplier?: Promise<ISupplier>;
+  procedure?: Promise<IProcedure>;
   price: number;
   startDate: Date;
   endDate: Date;
